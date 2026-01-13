@@ -1,0 +1,1514 @@
+Draft 1
+
+
+"use client";
+import { Button } from "@/components/ui/button";
+import {
+  CalendarDays,
+  Clock,
+  Video,
+  Sparkles,
+  Award,
+  Users,
+  CheckCircle,
+  Star,
+  Instagram,
+  MessageCircle,
+  Mail,
+  AlertCircle,
+  Palette,
+  Heart,
+  FileSpreadsheet,
+  Notebook,
+  MessageSquare,
+  Target as TargetIcon,
+  HelpCircle,
+  Lock,
+  MapPin,
+  Brush,
+  BookOpen,
+  Gift,
+  Rocket,
+  Users2,
+  ChevronDown,
+  ChevronUp,
+  ChevronLeft,
+  ChevronRight,
+  Play,
+  Pause,
+  Shield,
+  Map,
+  Brain,
+  ArrowRight,
+  Zap,
+  Target,
+  TrendingUp,
+  Globe,
+  MousePointer,
+} from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
+
+const WEBINAR_CONFIG = {
+  DATE_TIME: "2026-01-15 19:00:00",
+  TIMEZONE: "Asia/Kolkata",
+  RAZORPAY_LINK: "https://pages.razorpay.com/pl_S1rM8ZrphWo5il/view",
+  PRICE: {
+    original: "₹999",
+    discounted: "₹30 ONLY",
+  },
+  MAX_SEATS: 100,
+};
+
+// Modern color palette
+const COLORS = {
+  primary: {
+    50: "#FFF8F0",
+    100: "#FFEAD4",
+    200: "#FFD4A8",
+    300: "#FFB871",
+    400: "#FF8A3D",
+    500: "#F97316",
+    600: "#EA580C",
+    700: "#C2410C",
+    800: "#9A3412",
+    900: "#7C2D12",
+  },
+  neutral: {
+    50: "#FAFAF9",
+    100: "#F5F5F4",
+    200: "#E7E5E4",
+    300: "#D6D3D1",
+    400: "#A8A29E",
+    500: "#78716C",
+    600: "#57534E",
+    700: "#44403C",
+    800: "#292524",
+    900: "#1C1917",
+  },
+  success: {
+    500: "#10B981",
+    600: "#059669",
+  },
+};
+
+const formatTime = (time: number) => {
+  return time.toString().padStart(2, "0");
+};
+
+const calculateTimeLeft = (targetDate: Date) => {
+  const now = new Date().getTime();
+  const target = targetDate.getTime();
+  const difference = target - now;
+
+  if (difference <= 0) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0, isPast: true };
+  }
+
+  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+  const hours = Math.floor(
+    (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
+  const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+  return { days, hours, minutes, seconds, isPast: false };
+};
+
+const CountdownTimer = () => {
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+    isPast: false,
+  });
+
+  const webinarDateTime = new Date(WEBINAR_CONFIG.DATE_TIME);
+
+  useEffect(() => {
+    setTimeLeft(calculateTimeLeft(webinarDateTime));
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft(webinarDateTime));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleRegisterClick = () => {
+    window.open(WEBINAR_CONFIG.RAZORPAY_LINK, "_blank");
+  };
+
+  if (timeLeft.isPast) {
+    return (
+      <div className="relative overflow-hidden bg-gradient-to-r from-primary-600 to-primary-700 text-white p-8 md:p-10 rounded-2xl md:rounded-3xl shadow-2xl">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-12 -translate-x-12"></div>
+
+        <div className="relative z-10 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full mb-6">
+            <Zap className="w-4 h-4" />
+            <span className="text-sm font-semibold">LIVE NOW</span>
+          </div>
+
+          <h3 className="text-2xl md:text-3xl font-bold mb-4">
+            Webinar Has Started! Join Now
+          </h3>
+          <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
+            Don't miss this opportunity to transform from confused to confident
+            artist.
+          </p>
+
+          <Button
+            onClick={handleRegisterClick}
+            className="group px-8 py-4 text-lg rounded-full font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-0.5"
+            style={{
+              background: `linear-gradient(135deg, ${COLORS.primary[50]}, ${COLORS.primary[100]})`,
+              color: COLORS.primary[700],
+            }}
+          >
+            <Rocket className="w-5 h-5 mr-2 group-hover:translate-x-1 transition-transform" />
+            Join Live Session
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative overflow-hidden bg-gradient-to-br from-primary-500 to-primary-600 text-white p-8 md:p-10 rounded-2xl md:rounded-3xl shadow-2xl">
+      <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-20 translate-x-20"></div>
+      <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-full translate-y-16 -translate-x-16"></div>
+
+      <div className="relative z-10">
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full mb-4">
+            <Clock className="w-4 h-4" />
+            <span className="text-sm font-semibold">WEBINAR STARTS IN</span>
+          </div>
+
+          <div className="flex justify-center space-x-4 md:space-x-6 mb-8">
+            {["days", "hours", "minutes", "seconds"].map((unit, index) => (
+              <div key={unit} className="text-center">
+                <div className="relative">
+                  <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 flex flex-col items-center justify-center">
+                    <div className="text-2xl md:text-3xl font-bold tracking-tight">
+                      {formatTime(
+                        timeLeft[
+                          unit as "days" | "hours" | "minutes" | "seconds"
+                        ]
+                      )}
+                    </div>
+                    <div className="text-xs md:text-sm font-medium uppercase tracking-wider opacity-90 mt-1">
+                      {unit.charAt(0)}
+                    </div>
+                  </div>
+                  <div className="absolute inset-0 rounded-2xl border border-white/30 animate-pulse"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="space-y-6">
+            <Button
+              onClick={handleRegisterClick}
+              className="group px-8 py-4 text-lg rounded-full font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-0.5 w-full md:w-auto"
+              style={{
+                background: `linear-gradient(135deg, ${COLORS.primary[50]}, ${COLORS.primary[100]})`,
+                color: COLORS.primary[700],
+              }}
+            >
+              <Rocket className="w-5 h-5 mr-2 group-hover:translate-x-1 transition-transform" />
+              Secure Your Spot Now
+            </Button>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">
+              <div className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full">
+                <CalendarDays className="w-4 h-4" />
+                <span>
+                  {webinarDateTime.toLocaleDateString("en-IN", {
+                    weekday: "short",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full">
+                <Clock className="w-4 h-4" />
+                <span>
+                  {webinarDateTime.toLocaleTimeString("en-IN", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}{" "}
+                  IST
+                </span>
+              </div>
+            </div>
+
+            <p className="text-sm opacity-80 max-w-md mx-auto">
+              ⚡ Only {WEBINAR_CONFIG.MAX_SEATS} spots available. Registration
+              closes when full.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const FixedCountdownBar = () => {
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+    isPast: false,
+  });
+  const [isVisible, setIsVisible] = useState(true);
+  const webinarDateTime = new Date(WEBINAR_CONFIG.DATE_TIME);
+
+  useEffect(() => {
+    setTimeLeft(calculateTimeLeft(webinarDateTime));
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft(webinarDateTime));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleRegisterClick = () => {
+    window.open(WEBINAR_CONFIG.RAZORPAY_LINK, "_blank");
+  };
+
+  if (!isVisible) return null;
+
+  return (
+    <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-primary-600 to-primary-700 text-white z-50 shadow-2xl border-t border-primary-500/50 backdrop-blur-lg">
+      <div className="container mx-auto px-4 py-3">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-white/15 backdrop-blur-sm rounded-full border border-white/25">
+              <Zap className="w-3.5 h-3.5" />
+              <span className="text-sm font-medium">Limited Time</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="flex gap-1.5">
+                {["days", "hours", "minutes", "seconds"].map((unit, index) => (
+                  <div key={unit} className="text-center">
+                    <div className="px-2.5 py-1.5 min-w-[48px] bg-white/15 backdrop-blur-sm rounded-lg border border-white/25">
+                      <div className="text-lg font-bold">
+                        {formatTime(
+                          timeLeft[
+                            unit as "days" | "hours" | "minutes" | "seconds"
+                          ]
+                        )}
+                      </div>
+                      <div className="text-xs font-medium uppercase tracking-wider opacity-90">
+                        {unit.charAt(0)}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <div className="text-center">
+              <div className="text-sm line-through opacity-75">₹999</div>
+              <div className="text-xl font-bold">
+                {WEBINAR_CONFIG.PRICE.discounted}
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Button
+                onClick={handleRegisterClick}
+                className="px-5 py-2.5 text-sm rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300"
+                style={{
+                  background: `linear-gradient(135deg, ${COLORS.primary[50]}, ${COLORS.primary[100]})`,
+                  color: COLORS.primary[700],
+                }}
+              >
+                <Rocket className="w-3.5 h-3.5 mr-1.5" />
+                Register Now
+              </Button>
+              <button
+                onClick={() => setIsVisible(false)}
+                className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors"
+                aria-label="Close"
+              >
+                ×
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const YouTubeVideo = () => {
+  return (
+    <div className="relative group">
+      <div className="absolute -inset-1 bg-gradient-to-r from-primary-400 to-primary-600 rounded-3xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+      <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl border-2 border-white/20">
+        <iframe
+          width="100%"
+          height="100%"
+          src="https://www.youtube.com/embed/eDuM-US_Gjk?si=Sgd43lmt9-dpmv5q&autoplay=1&mute=0&controls=1&modestbranding=1&rel=0&showinfo=0"
+          title="From Confused to Confident Artist - Webinar Preview"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+          className="absolute inset-0 w-full h-full"
+          loading="eager"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none"></div>
+      </div>
+    </div>
+  );
+};
+
+const TestimonialCarousel = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [playingVideo, setPlayingVideo] = useState<number | null>(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+
+  const testimonials = [
+    {
+      name: "Dev S.",
+      role: "Beginner Artist",
+      quote:
+        "I was overwhelmed by where to start. This workshop gave me the clarity and roadmap I needed. Now I create art daily with confidence!",
+      duration: "1:20",
+      videoSrc: "/assets/VT2.mp4",
+      thumbnail: "/assets/VT2-thumb.png",
+      rating: 5,
+    },
+    {
+      name: "Divyashree R.",
+      role: "Hobby Artist",
+      quote:
+        "Meenakshi ma'am breaks down complex concepts so simply. I went from confused about mediums to confidently exploring watercolors!",
+      duration: "0:58",
+      videoSrc: "/assets/VT3.mp4",
+      thumbnail: "/assets/VT3-thumb.png",
+      rating: 5,
+    },
+    {
+      name: "Vismat G.",
+      role: "Student",
+      quote:
+        "The mindset shift was everything. Worth every penny! I've already recommended it to three friends who were also stuck.",
+      duration: "1:10",
+      videoSrc: "/assets/VT4.mp4",
+      thumbnail: "/assets/VT4-thumb.png",
+      rating: 5,
+    },
+    {
+      name: "Divya K.",
+      role: "Art Student",
+      quote:
+        "Best investment in my art journey. Learned more in 90 minutes than in months of trying to figure it out on my own!",
+      duration: "0:45",
+      videoSrc: "/assets/VT1.mp4",
+      thumbnail: "/assets/VT1-thumb.png",
+      rating: 5,
+    },
+  ];
+
+  const handlePlayVideo = (index: number) => {
+    if (playingVideo === index) {
+      videoRefs.current[index]?.pause();
+      setPlayingVideo(null);
+    } else {
+      if (playingVideo !== null && videoRefs.current[playingVideo]) {
+        videoRefs.current[playingVideo]?.pause();
+        videoRefs.current[playingVideo]!.currentTime = 0;
+      }
+      setPlayingVideo(index);
+      setTimeout(() => {
+        videoRefs.current[index]?.play();
+      }, 100);
+    }
+  };
+
+  const handleVideoClick = (index: number) => {
+    if (playingVideo === index) {
+      videoRefs.current[index]?.pause();
+      setPlayingVideo(null);
+    } else {
+      handlePlayVideo(index);
+    }
+  };
+
+  const handleVideoEnded = (index: number) => {
+    setPlayingVideo(null);
+    if (videoRefs.current[index]) {
+      videoRefs.current[index]!.currentTime = 0;
+    }
+  };
+
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1
+    );
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentIndex(index);
+  };
+
+  return (
+    <div className="w-full">
+      <div className="relative bg-gradient-to-br from-white to-neutral-50 rounded-3xl shadow-2xl overflow-hidden border border-neutral-200">
+        <div className="absolute top-6 left-6 z-10">
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-primary-100 text-primary-700 rounded-full">
+            <Video className="w-3.5 h-3.5" />
+            <span className="text-sm font-semibold">Video Testimonials</span>
+          </div>
+        </div>
+
+        <div
+          className="flex transition-transform duration-500 ease-out"
+          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+        >
+          {testimonials.map((testimonial, index) => (
+            <div
+              key={index}
+              className="w-full flex-shrink-0 p-8 md:p-12 min-h-[560px] lg:min-h-[620px] flex justify-center items-center"
+            >
+              <div className="w-full max-w-6xl flex flex-col lg:flex-row items-center gap-12">
+                {/* VIDEO CARD */}
+                <div className="lg:w-2/5">
+                  <div className="group relative">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-primary-400 to-primary-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-500"></div>
+
+                    <div
+                      className="relative aspect-[4/5] rounded-xl overflow-hidden shadow-xl"
+                      style={{
+                        backgroundColor: "#FFFCF8",
+                        border: `2px solid ${COLORS.primary[200]}`,
+                      }}
+                    >
+                      <video
+                        ref={(el) => {
+                          videoRefs.current[index] = el;
+                        }}
+                        src={testimonial.videoSrc}
+                        className="w-full h-full object-cover"
+                        onEnded={() => handleVideoEnded(index)}
+                        onClick={() => handleVideoClick(index)}
+                        playsInline
+                        preload="metadata"
+                        style={{
+                          opacity: playingVideo === index ? 1 : 0,
+                          position: "absolute",
+                          inset: 0,
+                          zIndex: playingVideo === index ? 20 : 10,
+                        }}
+                      />
+
+                      {playingVideo !== index && (
+                        <div
+                          className="absolute inset-0 cursor-pointer"
+                          onClick={() => handleVideoClick(index)}
+                        >
+                          <Image
+                            src={testimonial.thumbnail}
+                            alt={`${testimonial.name} testimonial thumbnail`}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, 360px"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent">
+                            <div className="absolute bottom-4 left-4 right-4">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-2">
+                                  <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform duration-300">
+                                    <Play className="w-6 h-6 text-white ml-0.5" />
+                                  </div>
+                                  <span className="text-white font-medium">
+                                    Play Story
+                                  </span>
+                                </div>
+                                <div className="bg-black/70 text-white text-xs px-3 py-1.5 rounded-full">
+                                  {testimonial.duration}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {playingVideo === index && (
+                        <div className="absolute inset-0">
+                          <div
+                            className="absolute inset-0 cursor-pointer"
+                            onClick={() => handleVideoClick(index)}
+                            title="Click to pause"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* VIDEO CONTROLS */}
+                  <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <Button
+                      size="lg"
+                      onClick={() => handleVideoClick(index)}
+                      className="w-full sm:w-auto px-6 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group"
+                      style={{
+                        background: `linear-gradient(135deg, ${COLORS.primary[500]}, ${COLORS.primary[600]})`,
+                        color: "white",
+                      }}
+                    >
+                      {playingVideo === index ? (
+                        <>
+                          <Pause className="w-4 h-4 mr-2" />
+                          Pause Video
+                        </>
+                      ) : (
+                        <>
+                          <Play className="w-4 h-4 mr-2 group-hover:translate-x-0.5 transition-transform" />
+                          Play Their Story
+                        </>
+                      )}
+                    </Button>
+
+                    <div className="flex items-center gap-1">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className="w-5 h-5"
+                          style={{
+                            color: COLORS.primary[500],
+                            fill: COLORS.primary[500],
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* TESTIMONIAL CONTENT */}
+                <div className="lg:w-3/5">
+                  <div className="relative">
+                    <div className="absolute -top-6 -left-6 text-6xl text-primary-100 font-serif">
+                      "
+                    </div>
+                    <div className="relative bg-white rounded-2xl p-8 shadow-xl border border-neutral-200">
+                      <div className="mb-8">
+                        <p className="text-2xl md:text-3xl font-light italic leading-relaxed text-neutral-800">
+                          {testimonial.quote}
+                        </p>
+                      </div>
+
+                      <div className="pt-8 border-t border-neutral-200">
+                        <div className="flex items-center gap-4">
+                          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center">
+                            <span className="text-2xl font-bold text-primary-700">
+                              {testimonial.name.charAt(0)}
+                            </span>
+                          </div>
+                          <div>
+                            <h4 className="text-xl font-bold text-neutral-900">
+                              {testimonial.name}
+                            </h4>
+                            <p className="text-neutral-600">
+                              {testimonial.role}
+                            </p>
+                            <div className="flex items-center gap-2 mt-2">
+                              <div className="flex items-center gap-1">
+                                {[...Array(5)].map((_, i) => (
+                                  <Star
+                                    key={i}
+                                    className="w-4 h-4"
+                                    style={{
+                                      color: COLORS.primary[500],
+                                      fill: COLORS.primary[500],
+                                    }}
+                                  />
+                                ))}
+                              </div>
+                              <span className="text-sm text-neutral-500">
+                                Verified Student
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* CAROUSEL CONTROLS */}
+        <button
+          onClick={prevSlide}
+          className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center z-10 border border-neutral-200 hover:scale-110"
+          aria-label="Previous testimonial"
+        >
+          <ChevronLeft className="w-5 h-5 text-neutral-700" />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center z-10 border border-neutral-200 hover:scale-110"
+          aria-label="Next testimonial"
+        >
+          <ChevronRight className="w-5 h-5 text-neutral-700" />
+        </button>
+
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-10">
+          {testimonials.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`transition-all duration-300 ${
+                index === currentIndex ? "w-12" : "w-2.5"
+              } h-2.5 rounded-full`}
+              style={{
+                backgroundColor:
+                  index === currentIndex
+                    ? COLORS.primary[500]
+                    : COLORS.neutral[300],
+              }}
+              aria-label={`Go to testimonial ${index + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const StatCard = ({ icon: Icon, value, label }: any) => (
+  <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-neutral-200">
+    <div className="flex items-center gap-4">
+      <div className="w-12 h-12 rounded-xl bg-primary-100 flex items-center justify-center">
+        <Icon className="w-6 h-6 text-primary-600" />
+      </div>
+      <div>
+        <div className="text-2xl font-bold text-neutral-900">{value}</div>
+        <div className="text-sm text-neutral-600">{label}</div>
+      </div>
+    </div>
+  </div>
+);
+
+const BenefitCard = ({ icon: Icon, title, description }: any) => (
+  <div className="group relative">
+    <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-400 to-primary-600 rounded-2xl blur opacity-0 group-hover:opacity-20 transition duration-500 group-hover:duration-200"></div>
+    <div className="relative bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-neutral-200 group-hover:border-primary-200">
+      <div className="flex items-start gap-4">
+        <div className="w-12 h-12 rounded-xl bg-primary-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+          <Icon className="w-6 h-6 text-primary-600" />
+        </div>
+        <div className="flex-1">
+          <h3 className="font-bold text-lg mb-2 text-neutral-900">{title}</h3>
+          <p className="text-neutral-600">{description}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+export default function Home() {
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+  const webinarDateTime = new Date(WEBINAR_CONFIG.DATE_TIME);
+
+  const faqs = [
+    {
+      q: "Who can join this webinar?",
+      a: "This webinar is perfect for complete beginners, hobby artists, and anyone who feels scared, confused, or overwhelmed about starting their art journey.",
+    },
+    {
+      q: "Do I need any art experience?",
+      a: "No experience needed! This webinar is designed specifically for beginners with zero background in art.",
+    },
+    {
+      q: "What will I learn in this webinar?",
+      a: "You'll gain clarity on how to start art the right way, understand why beginners feel stuck, and build the belief that art is a learnable skill.",
+    },
+    {
+      q: "What materials do I need?",
+      a: "Just bring your curiosity! This webinar is about mindset and direction, so you don't need any art materials.",
+    },
+    {
+      q: "How will I get the meeting link?",
+      a: "Once registration is complete, you'll be added to a WhatsApp group where the webinar link will be shared immediately.",
+    },
+  ];
+
+  const toggleFaq = (index: number) => {
+    setOpenFaqIndex(openFaqIndex === index ? null : index);
+  };
+
+  const handleRegisterClick = () => {
+    window.open(WEBINAR_CONFIG.RAZORPAY_LINK, "_blank");
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-white to-neutral-50 pb-20">
+      <FixedCountdownBar />
+
+      {/* Hero Section */}
+      <section className="relative overflow-hidden px-4 py-12 md:py-20">
+        {/* Background Elements */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary-100 rounded-full -translate-y-48 translate-x-48 opacity-30"></div>
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-primary-100 rounded-full translate-y-40 -translate-x-40 opacity-30"></div>
+
+        <div className="container mx-auto max-w-6xl relative z-10">
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 text-primary-700 rounded-full mb-6 animate-fade-in">
+              <Sparkles className="w-4 h-4" />
+              <span className="text-sm font-semibold">
+                LIVE MINDSET WEBINAR
+              </span>
+            </div>
+
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-neutral-900 to-neutral-700 bg-clip-text text-transparent">
+              Stuck at the Starting Line of{" "}
+              <span className="bg-gradient-to-r from-primary-500 to-primary-600 bg-clip-text text-transparent">
+                Your Art Journey?
+              </span>
+            </h1>
+
+            <p className="text-xl text-neutral-600 mb-10 leading-relaxed">
+              Join this live webinar to transform confusion into confidence, and
+              get the{" "}
+              <span className="font-semibold text-primary-600">
+                clarity, roadmap, and mindset
+              </span>{" "}
+              you need to start creating art you're proud of.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              <div className="flex items-center gap-2 px-4 py-3 bg-white rounded-xl shadow-sm border border-neutral-200">
+                <CalendarDays className="w-5 h-5 text-primary-500" />
+                <span className="font-medium">
+                  {webinarDateTime.toLocaleDateString("en-IN", {
+                    weekday: "short",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-3 bg-white rounded-xl shadow-sm border border-neutral-200">
+                <Clock className="w-5 h-5 text-primary-500" />
+                <span className="font-medium">
+                  {webinarDateTime.toLocaleTimeString("en-IN", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}{" "}
+                  IST
+                </span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-3 bg-white rounded-xl shadow-sm border border-neutral-200">
+                <Globe className="w-5 h-5 text-primary-500" />
+                <span className="font-medium">Online Live Session</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="mb-12">
+            <YouTubeVideo />
+          </div>
+
+          <div className="mb-12">
+            <CountdownTimer />
+          </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            <StatCard icon={Users} value="1,500+" label="Artists Transformed" />
+            <StatCard icon={Award} value="7+ Years" label="Expert Guidance" />
+            <StatCard icon={Star} value="4.9/5" label="Student Rating" />
+            <StatCard icon={Target} value="100%" label="Beginner Friendly" />
+          </div>
+
+          <div className="space-y-4 mb-12">
+            {[
+              "Remove fear and self-doubt around starting art",
+              "Understand why beginners feel stuck or confused",
+              "Get a clear roadmap for starting your art journey",
+              "Learn how to explore different mediums confidently",
+              "Build the belief that art is a learnable skill",
+              "Join a supportive community of fellow beginners",
+            ].map((item, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-3 p-3 bg-white rounded-xl shadow-sm border border-neutral-200"
+              >
+                <CheckCircle className="w-5 h-5 text-success-500 flex-shrink-0" />
+                <span className="text-neutral-700">{item}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Button
+              onClick={handleRegisterClick}
+              size="lg"
+              className="group px-10 py-6 text-xl rounded-full font-bold shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-1"
+              style={{
+                background: `linear-gradient(135deg, ${COLORS.primary[500]}, ${COLORS.primary[600]})`,
+                color: "white",
+              }}
+            >
+              <Rocket className="w-6 h-6 mr-3 group-hover:translate-x-1 transition-transform" />
+              Yes, I Want Artistic Clarity!
+              <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
+            </Button>
+
+            <p className="mt-6 text-sm text-neutral-500 flex items-center justify-center gap-2">
+              <Lock className="w-4 h-4" />
+              100% Secure Registration • No Spam, Ever
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Core Focus Areas */}
+      <section className="px-4 py-16 md:py-24 bg-gradient-to-b from-white to-neutral-50">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12 md:mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 text-primary-700 rounded-full mb-4">
+              <TargetIcon className="w-4 h-4" />
+              <span className="text-sm font-semibold">
+                CORE TRANSFORMATIONS
+              </span>
+            </div>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-neutral-900">
+              What You'll{" "}
+              <span className="bg-gradient-to-r from-primary-500 to-primary-600 bg-clip-text text-transparent">
+                Achieve
+              </span>{" "}
+              in This Webinar
+            </h2>
+            <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
+              This isn't a technical drawing class. It's a mindset shift
+              designed to give you the clarity and confidence to start your art
+              journey right.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                icon: Shield,
+                title: "Eliminate Fear & Self-Doubt",
+                description:
+                  "Break through mental barriers that keep you from picking up that first brush or pencil.",
+              },
+              {
+                icon: Map,
+                title: "Clear Progression Roadmap",
+                description:
+                  "Get step-by-step guidance on what to learn, in what order, and how to measure progress.",
+              },
+              {
+                icon: Palette,
+                title: "Medium Mastery Blueprint",
+                description:
+                  "Understand different art supplies and confidently choose what's right for your journey.",
+              },
+              {
+                icon: Brain,
+                title: "Growth Mindset Foundation",
+                description:
+                  "Build the unshakable belief that artistic skill is developed, not inherited.",
+              },
+              {
+                icon: Heart,
+                title: "Beginner-First Philosophy",
+                description:
+                  "Learn through methods designed specifically for those starting from zero.",
+              },
+              {
+                icon: TrendingUp,
+                title: "Confidence Acceleration",
+                description:
+                  "Transform from feeling intimidated to feeling excited about your creative potential.",
+              },
+            ].map((item, index) => (
+              <BenefitCard key={index} {...item} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Who This Is For */}
+      <section className="px-4 py-16 md:py-24 bg-white">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-neutral-900">
+              This Webinar Is{" "}
+              <span className="bg-gradient-to-r from-primary-500 to-primary-600 bg-clip-text text-transparent">
+                Perfect For You
+              </span>{" "}
+              If...
+            </h2>
+            <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
+              Identify with any of these? You're in the right place.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                title: "Complete Beginners",
+                description:
+                  "You've always wanted to try art but don't know where to start",
+                icon: "🎨",
+                color: "bg-blue-50",
+              },
+              {
+                title: "Hobby Artists",
+                description: "You dabble in art but feel stuck or inconsistent",
+                icon: "✨",
+                color: "bg-purple-50",
+              },
+              {
+                title: "Fearful Starters",
+                description:
+                  "Fear of failure or not being 'good enough' holds you back",
+                icon: "🛡️",
+                color: "bg-red-50",
+              },
+              {
+                title: "Medium-Confused",
+                description:
+                  "Overwhelmed by all the supplies and techniques available",
+                icon: "🤔",
+                color: "bg-yellow-50",
+              },
+              {
+                title: "Restarting Artists",
+                description:
+                  "You used to create art but stopped and want to begin again",
+                icon: "🔄",
+                color: "bg-green-50",
+              },
+              {
+                title: "Self-Taught Learners",
+                description:
+                  "You've tried learning online but feel lost without structure",
+                icon: "📚",
+                color: "bg-indigo-50",
+              },
+            ].map((item, index) => (
+              <div
+                key={index}
+                className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-neutral-200 hover:border-primary-300"
+              >
+                <div className="flex items-start gap-4">
+                  <div
+                    className={`w-14 h-14 rounded-xl flex items-center justify-center text-2xl ${item.color}`}
+                  >
+                    {item.icon}
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg mb-2 text-neutral-900">
+                      {item.title}
+                    </h3>
+                    <p className="text-neutral-600">{item.description}</p>
+                  </div>
+                </div>
+                <div className="mt-4 pt-4 border-t border-neutral-100">
+                  <div className="flex items-center gap-2 text-sm text-primary-600">
+                    <MousePointer className="w-3 h-3" />
+                    <span>Clicking "Register" solves this</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="px-4 py-16 md:py-24 bg-gradient-to-b from-white to-neutral-50">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-neutral-900">
+              Real Stories From{" "}
+              <span className="bg-gradient-to-r from-primary-500 to-primary-600 bg-clip-text text-transparent">
+                Real Beginners
+              </span>
+            </h2>
+            <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
+              Watch how others transformed from confused to confident in their
+              art journey.
+            </p>
+          </div>
+          <TestimonialCarousel />
+        </div>
+      </section>
+
+      {/* About Guide */}
+      <section className="px-4 py-16 md:py-24 bg-white">
+        <div className="container mx-auto max-w-6xl">
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+            <div className="lg:w-2/5">
+              <div className="relative">
+                <div className="absolute -inset-4 bg-gradient-to-r from-primary-400 to-primary-600 rounded-3xl blur opacity-20"></div>
+                <div className="relative">
+                  <div className="w-64 h-64 md:w-80 md:h-80 mx-auto relative overflow-hidden rounded-2xl shadow-2xl border-4 border-white">
+                    <Image
+                      src="/assets/MentorImage.jpeg"
+                      alt="Meenakshi Shukla - Art Mentor"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                    />
+                  </div>
+                  <div className="absolute -bottom-4 -right-4 w-20 h-20 rounded-2xl bg-white shadow-xl border border-neutral-200 flex items-center justify-center">
+                    <Award className="w-10 h-10 text-primary-500" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:w-3/5">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 text-primary-700 rounded-full mb-4">
+                <Sparkles className="w-4 h-4" />
+                <span className="text-sm font-semibold">YOUR GUIDE</span>
+              </div>
+
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-neutral-900">
+                Meenakshi Shukla
+              </h2>
+              <p className="text-xl text-primary-600 font-semibold mb-8">
+                Founder, Drawing Dreams Art Institute
+              </p>
+
+              <div className="space-y-6 mb-10">
+                {[
+                  "7+ years specializing exclusively in beginner art education",
+                  "Helped 1,500+ beginners start their art journey with confidence",
+                  "Expert in breaking down complex art concepts into simple, actionable steps",
+                  "Passionate advocate for making art accessible to everyone",
+                ].map((item, index) => (
+                  <div key={index} className="flex items-start gap-4">
+                    <div className="w-6 h-6 rounded-full bg-success-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <CheckCircle className="w-4 h-4 text-success-600" />
+                    </div>
+                    <span className="text-lg text-neutral-700">{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="bg-gradient-to-r from-primary-50 to-primary-100 rounded-2xl p-6 border border-primary-200">
+                <div className="flex items-start gap-4">
+                  <Quote className="w-8 h-8 text-primary-400 flex-shrink-0" />
+                  <div>
+                    <p className="text-lg italic text-neutral-700 mb-4">
+                      "I kept meeting talented people who were too scared to
+                      start. They had the desire but lacked the confidence and
+                      direction. That's why I created this webinar - to give
+                      beginners what I wish I had when I started."
+                    </p>
+                    <p className="font-semibold text-primary-700">
+                      — Meenakshi Shukla
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What You Get */}
+      <section className="px-4 py-16 md:py-24 bg-gradient-to-b from-white to-neutral-50">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-neutral-900">
+              Everything You'll{" "}
+              <span className="bg-gradient-to-r from-primary-500 to-primary-600 bg-clip-text text-transparent">
+                Receive
+              </span>
+            </h2>
+            <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
+              Beyond just the live session, here's your complete starter kit for
+              art confidence.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                icon: Video,
+                title: "Live Mindset Webinar",
+                description:
+                  "60-75 minute interactive session focused on clarity and confidence",
+                duration: "Live",
+                highlight: true,
+              },
+              {
+                icon: Map,
+                title: "Art Journey Roadmap",
+                description:
+                  "Step-by-step PDF guide on what to learn and in what order",
+                duration: "PDF Guide",
+              },
+              {
+                icon: FileSpreadsheet,
+                title: "Medium Comparison Guide",
+                description:
+                  "Understand different art supplies and what's right for beginners",
+                duration: "Cheat Sheet",
+              },
+              {
+                icon: Notebook,
+                title: "Beginner Practice Exercises",
+                description:
+                  "Simple, non-intimidating exercises to build confidence",
+                duration: "Practice Kit",
+              },
+              {
+                icon: MessageSquare,
+                title: "Live Q&A Session",
+                description:
+                  "Get your specific questions answered directly by Meenakshi",
+                duration: "Live Support",
+              },
+              {
+                icon: Users2,
+                title: "Beginner Community Access",
+                description: "Connect with others starting their art journey",
+                duration: "Community",
+              },
+            ].map((item, index) => (
+              <div
+                key={index}
+                className={`group bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border-2 ${
+                  item.highlight
+                    ? "border-primary-500 bg-gradient-to-br from-white to-primary-50"
+                    : "border-neutral-200"
+                }`}
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div
+                    className={`w-12 h-12 rounded-xl flex items-center justify-center ${
+                      item.highlight ? "bg-primary-100" : "bg-neutral-100"
+                    }`}
+                  >
+                    <item.icon
+                      className={`w-6 h-6 ${
+                        item.highlight ? "text-primary-600" : "text-neutral-600"
+                      }`}
+                    />
+                  </div>
+                  <span
+                    className={`px-3 py-1 rounded-full text-sm font-medium ${
+                      item.highlight
+                        ? "bg-primary-100 text-primary-700"
+                        : "bg-neutral-100 text-neutral-700"
+                    }`}
+                  >
+                    {item.duration}
+                  </span>
+                </div>
+                <h3 className="font-bold text-lg mb-2 text-neutral-900">
+                  {item.title}
+                </h3>
+                <p className="text-neutral-600">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing CTA */}
+      <section className="px-4 py-16 md:py-24">
+        <div className="container mx-auto max-w-4xl">
+          <div className="relative overflow-hidden bg-gradient-to-br from-primary-600 to-primary-700 rounded-3xl shadow-2xl p-8 md:p-12">
+            {/* Decorative elements */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-32 translate-x-32"></div>
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full translate-y-24 -translate-x-24"></div>
+
+            <div className="relative z-10 text-center text-white">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full mb-6">
+                <Gift className="w-4 h-4" />
+                <span className="text-sm font-semibold">
+                  SPECIAL LAUNCH OFFER
+                </span>
+              </div>
+
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+                Ready to Transform{" "}
+                <span className="text-primary-100">
+                  Confusion Into Confidence?
+                </span>
+              </h2>
+
+              <p className="text-xl opacity-90 mb-10 max-w-2xl mx-auto">
+                Join this live webinar and get everything you need to start your
+                art journey with clarity, direction, and unshakable confidence.
+              </p>
+
+              <div className="mb-10">
+                <div className="inline-flex flex-col sm:flex-row items-center gap-4 bg-white/10 backdrop-blur-sm rounded-2xl p-6">
+                  <div className="text-center">
+                    <div className="text-4xl md:text-5xl font-bold mb-2">
+                      {WEBINAR_CONFIG.PRICE.discounted}
+                    </div>
+                    <div className="text-sm opacity-80">
+                      One-Time Investment
+                    </div>
+                  </div>
+                  <div className="h-12 w-px bg-white/30 hidden sm:block"></div>
+                  <div className="text-left">
+                    <div className="text-lg line-through opacity-75">₹999</div>
+                    <div className="text-sm opacity-90">
+                      93% OFF Limited Time
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-8">
+                <Button
+                  onClick={handleRegisterClick}
+                  size="lg"
+                  className="group px-12 py-6 text-xl rounded-full font-bold shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-1"
+                  style={{
+                    background: `linear-gradient(135deg, ${COLORS.primary[50]}, ${COLORS.primary[100]})`,
+                    color: COLORS.primary[700],
+                  }}
+                >
+                  <Rocket className="w-6 h-6 mr-3 group-hover:translate-x-1 transition-transform" />
+                  Yes, I Want Artistic Clarity!
+                  <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
+                </Button>
+
+                <div className="space-y-4">
+                  <div className="flex items-center justify-center gap-3 text-sm">
+                    <div className="flex items-center gap-2">
+                      <Lock className="w-4 h-4" />
+                      <span>Secure Payment</span>
+                    </div>
+                    <div className="w-1 h-1 bg-white/50 rounded-full"></div>
+                    <div className="flex items-center gap-2">
+                      <CalendarDays className="w-4 h-4" />
+                      <span>Lifetime Access to Recording</span>
+                    </div>
+                    <div className="w-1 h-1 bg-white/50 rounded-full"></div>
+                    <div className="flex items-center gap-2">
+                      <AlertCircle className="w-4 h-4" />
+                      <span>Only {WEBINAR_CONFIG.MAX_SEATS} Spots Left</span>
+                    </div>
+                  </div>
+
+                  <p className="text-sm opacity-80">
+                    ⚡ Price increases when timer hits zero. Secure your spot at
+                    current price.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="px-4 py-16 md:py-24 bg-white">
+        <div className="container mx-auto max-w-4xl">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-neutral-900">
+              Your Questions,{" "}
+              <span className="bg-gradient-to-r from-primary-500 to-primary-600 bg-clip-text text-transparent">
+                Answered
+              </span>
+            </h2>
+            <p className="text-xl text-neutral-600">
+              Everything you need to know before joining the webinar.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <div
+                key={index}
+                className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-neutral-200"
+              >
+                <button
+                  onClick={() => toggleFaq(index)}
+                  className="w-full p-6 text-left flex items-center justify-between hover:bg-neutral-50 transition-colors duration-200 rounded-2xl"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-primary-100 flex items-center justify-center">
+                      <HelpCircle className="w-5 h-5 text-primary-600" />
+                    </div>
+                    <h3 className="font-semibold text-lg text-neutral-900">
+                      {faq.q}
+                    </h3>
+                  </div>
+                  <div
+                    className={`transition-transform duration-300 ${
+                      openFaqIndex === index ? "rotate-180" : ""
+                    }`}
+                  >
+                    <ChevronDown className="w-5 h-5 text-neutral-500" />
+                  </div>
+                </button>
+
+                <div
+                  className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                    openFaqIndex === index ? "max-h-96" : "max-h-0"
+                  }`}
+                >
+                  <div className="px-6 pb-6 pt-0">
+                    <div className="pl-14">
+                      <div className="flex items-start gap-4 p-4 bg-neutral-50 rounded-xl">
+                        <CheckCircle className="w-5 h-5 text-success-500 flex-shrink-0 mt-0.5" />
+                        <p className="text-neutral-700">{faq.a}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <div className="inline-flex flex-col sm:flex-row gap-4 items-center justify-center">
+              <div className="flex items-center gap-2 px-4 py-2 bg-primary-100 text-primary-700 rounded-full">
+                <MessageCircle className="w-4 h-4" />
+                <span className="font-medium">Still have questions?</span>
+              </div>
+              <Button
+                variant="outline"
+                size="lg"
+                className="rounded-full border-primary-500 text-primary-600 hover:bg-primary-50"
+              >
+                <MessageCircle className="w-4 h-4 mr-2" />
+                WhatsApp Support
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gradient-to-br from-neutral-900 to-neutral-800 text-white">
+        <div className="container mx-auto max-w-6xl px-4 py-12 md:py-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-xl bg-primary-500 flex items-center justify-center">
+                  <Brush className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold">
+                    Drawing Dreams Art Institute
+                  </h3>
+                  <p className="text-sm text-neutral-300">Since 2017</p>
+                </div>
+              </div>
+              <p className="text-neutral-300">
+                Empowering beginners to start their art journey with confidence
+                and clarity.
+              </p>
+            </div>
+
+            <div>
+              <h4 className="font-bold mb-4">Quick Links</h4>
+              <div className="space-y-2">
+                <a
+                  href="#"
+                  className="block text-neutral-300 hover:text-white transition-colors"
+                >
+                  About the Webinar
+                </a>
+                <a
+                  href="#"
+                  className="block text-neutral-300 hover:text-white transition-colors"
+                >
+                  Testimonials
+                </a>
+                <a
+                  href="#"
+                  className="block text-neutral-300 hover:text-white transition-colors"
+                >
+                  FAQ
+                </a>
+                <a
+                  href="#"
+                  className="block text-neutral-300 hover:text-white transition-colors"
+                >
+                  Contact Support
+                </a>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="font-bold mb-4">Connect With Us</h4>
+              <div className="flex gap-4 mb-4">
+                <a
+                  href="https://www.instagram.com/meenakshiartt"
+                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary-500 transition-colors"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="w-5 h-5" />
+                </a>
+                <a
+                  href="https://wa.me/+919651833502"
+                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary-500 transition-colors"
+                  aria-label="WhatsApp"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                </a>
+                <a
+                  href="#"
+                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary-500 transition-colors"
+                  aria-label="Email"
+                >
+                  <Mail className="w-5 h-5" />
+                </a>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-neutral-300">
+                <MapPin className="w-4 h-4" />
+                <span>Noida, India • Serving artists worldwide</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="pt-8 border-t border-white/10 text-center text-sm text-neutral-300">
+            <p>
+              © {new Date().getFullYear()} Drawing Dreams Art Institute. All
+              rights reserved.
+            </p>
+            <p className="mt-2">From Confused to Confident Artist Webinar</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+// Quote icon component
+const Quote = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    fill="currentColor"
+    viewBox="0 0 32 32"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M10 8c-3.3 0-6 2.7-6 6v10h10V14H6c0-2.2 1.8-4 4-4zm14 0c-3.3 0-6 2.7-6 6v10h10V14h-8c0-2.2 1.8-4 4-4z" />
+  </svg>
+);
+
+
+Draft 2:-
