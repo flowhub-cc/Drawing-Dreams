@@ -50,12 +50,12 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 
 const WEBINAR_CONFIG = {
-  DATE_TIME: "2026-02-08 14:00:00",
+  DATE_TIME: "2026-02-22 14:00:00",
   TIMEZONE: "Asia/Kolkata",
   RAZORPAY_LINK: "https://rzp.io/rzp/drawingdreams",
   PRICE: {
     original: "₹999",
-    discounted: "Rs.  30 ONLY",
+    discounted: "Rs.  99 ONLY",
   },
   MAX_SEATS: 100,
 };
@@ -155,10 +155,6 @@ const CountdownTimer = () => {
         {/* Floating particles */}
         <div className='absolute top-0 right-0 w-40 h-40 bg-white/20 rounded-full -translate-y-20 translate-x-20 blur-2xl'></div>
         <div className='absolute bottom-0 left-0 w-32 h-32 bg-amber-300/30 rounded-full translate-y-16 -translate-x-16 blur-2xl'></div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente,
-        soluta! Inventore excepturi assumenda voluptatibus quidem hic veritatis
-        reiciendis quis perferendis facere ut. Iste harum dolorum, ipsum id
-        aliquam odit cupiditate?
         <div className='relative z-10 text-center'>
           <div className='inline-flex items-center gap-2 px-4 py-2 bg-white/30 backdrop-blur-sm rounded-full mb-6 border border-white/40'>
             <Zap className='w-4 h-4' />
@@ -426,7 +422,7 @@ const YouTubeVideo = () => {
           width='100%'
           height='100%'
           src='https://www.youtube.com/embed/eDuM-US_Gjk?si=Sgd43lmt9-dpmv5q&enablejsapi=1&controls=1&modestbranding=1&rel=0&showinfo=0'
-          title='From Confused to Confident Artist - Webinar Preview'
+          title="Want to learn sketching & painting but don't know where to start? - Webinar Preview"
           allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
           referrerPolicy='strict-origin-when-cross-origin'
           allowFullScreen
@@ -904,12 +900,12 @@ export default function Home() {
 
             <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold mb-6'>
               <span className='bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-600 bg-clip-text text-transparent'>
-                Confused About Art?
+                Want to learn Sketching & Painting
               </span>
 
               <br />
               <span className='text-3xl md:text-4xl lg:text-5xl text-orange-800 mt-4 block'>
-                Stop Wasting Time on Random Tutorials.
+                But don&apos;t know where to start?
               </span>
             </h1>
 
@@ -967,74 +963,6 @@ export default function Home() {
               <Lock className='w-4 h-4' />
               100% Secure Registration • Limited Seats • Recording for 7 Days
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Core Focus Areas */}
-      <section className='px-4 py-16 md:py-24 bg-gradient-to-b from-white via-amber-50/50 to-yellow-50/30'>
-        <div className='container mx-auto max-w-6xl'>
-          <div className='text-center mb-12 md:mb-16'>
-            <button
-              onClick={() =>
-                window.open(WEBINAR_CONFIG.RAZORPAY_LINK, "_blank")
-              }
-              className='inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-orange-400 to-amber-400 text-white rounded-full mb-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group'
-            >
-              <TargetIcon className='w-4 h-4 group-hover:rotate-12 transition-transform duration-300' />
-              <span className='text-amber-50 text-sm font-semibold'>
-                YOUR TRANSFORMATION JOURNEY
-              </span>
-              <ArrowRight className='w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform duration-300' />
-            </button>
-
-            <h2 className='text-3xl md:text-4xl lg:text-5xl font-bold mb-6'>
-              <span className='bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-600 bg-clip-text text-transparent'>
-                From Confusion to Confidence
-              </span>
-            </h2>
-            <p className='text-xl text-orange-700 max-w-3xl mx-auto bg-white/50 p-6 rounded-2xl border border-amber-200'>
-              This isn't a technical drawing class. It's a mindset shift
-              designed to give you the clarity and confidence to start your art
-              journey right.
-            </p>
-          </div>
-
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-            {[
-              {
-                icon: Shield,
-                title: "Silence The Inner Critic",
-                description: `Stop the "I'm not good enough" voice and learn the mindset of a successful artist.`,
-              },
-              {
-                icon: Map,
-                title: `The "Zero-to-Artist" Plan`,
-                description: `No more guessing. Get a clear step-by-step guide on what to practice and when.`,
-              },
-              {
-                icon: Palette,
-                title: `End Supply Overwhelm`,
-                description: `Stop wasting money. Learn exactly which supplies you actually need to start.`,
-              },
-              {
-                icon: Brain,
-                title: `The "Talent Myth"`,
-                description: `We prove that art is a learned skill, not a magical gift you’re born with.`,
-              },
-              {
-                icon: Heart,
-                title: `No-Judgment Zone`,
-                description: `A safe, non-technical approach designed specifically for absolute beginners.`,
-              },
-              {
-                icon: TrendingUp,
-                title: "Instant Confidence",
-                description: `Walk away with the excitement and belief that you can do this.`,
-              },
-            ].map((item, index) => (
-              <BenefitCard key={index} {...item} />
-            ))}
           </div>
         </div>
       </section>
@@ -1647,7 +1575,7 @@ export default function Home() {
                 </div>
                 <div>
                   <h3 className='text-2xl font-bold bg-gradient-to-r from-amber-200 to-yellow-200 bg-clip-text text-transparent'>
-                    Drawing Dreams Art Institute
+                    Drawing Dreams Academy
                   </h3>
                   <p className='text-sm text-orange-300'>
                     Inspiring Artists Since 2017
@@ -1707,7 +1635,7 @@ export default function Home() {
               rights reserved.
             </p>
             <p className='mt-3 text-amber-50 font-medium'>
-              From Confused to Confident Artist Webinar
+              Want to learn sketching & painting but don't know where to start?
             </p>
           </div>
         </div>

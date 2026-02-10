@@ -8,29 +8,26 @@ import {
 } from "next/font/google";
 import "../../globals.css";
 
-// Secondary font: Source Sans 3 (professional, readable)
-const inter = Source_Sans_3({
-  variable: "--font-source-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  display: "swap",
 });
 
-// Secondary font: Source Sans 3 (professional, readable)
 const sourceSans = Source_Sans_3({
   variable: "--font-source-sans",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  display: "swap",
 });
 
-// Secondary font: Source Sans 3 (professional, readable)
-const playfair = Source_Sans_3({
-  variable: "--font-source-sans",
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Drawing Dreams Art Institute | Live Landscape Drawing Workshop",
+  title: "Drawing Dreams Academy | Live Landscape Drawing Workshop",
   description:
     "Join our live art workshop and learn landscape drawing step-by-step. Perfect for beginners. Only ₹30 per person. Limited seats available!",
   keywords: [
@@ -42,7 +39,7 @@ export const metadata: Metadata = {
     "art for kids",
     "drawing dreams",
   ],
-  authors: [{ name: "Drawing Dreams Art Institute" }],
+  authors: [{ name: "Drawing Dreams Academy" }],
   openGraph: {
     type: "website",
     locale: "en_IN",
@@ -67,7 +64,20 @@ export default function RootLayout({
       <head>
         <link rel='icon' href='/favicon.jpeg' type='image/jpeg' />
         <link rel='icon' type='image/x-icon' href='/favicon.ico' />
-
+        <link
+          rel='preload'
+          href={inter.variable}
+          as='font'
+          type='font/woff2'
+          crossOrigin='anonymous'
+        />
+        <link
+          rel='preload'
+          href={sourceSans.variable}
+          as='font'
+          type='font/woff2'
+          crossOrigin='anonymous'
+        />
         <script
           async
           src='https://www.googletagmanager.com/gtag/js?id=G-CK357Q7VME'
@@ -103,11 +113,7 @@ fbq('track', 'PageView');
         </noscript>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
       </head>
-      <body
-        className={`${inter.variable} ${sourceSans.variable} ${playfair.variable} font-sans antialiased bg-gradient-to-b from-orange-50 to-white text-gray-800`}
-      >
-        {children}
-      </body>
+      <body className={`${inter.className} antialiased`}>{children}</body>
     </html>
   );
 }
