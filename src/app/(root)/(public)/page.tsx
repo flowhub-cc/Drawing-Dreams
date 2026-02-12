@@ -820,6 +820,26 @@ const BenefitCard = ({ icon: Icon, title, description }: BenefitCardProps) => (
 export default function Home() {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   const webinarDateTime = new Date(WEBINAR_CONFIG.DATE_TIME);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (scrollRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+
+        if (scrollLeft + clientWidth >= scrollWidth - 5) {
+          scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
+        } else {
+          scrollRef.current.scrollBy({
+            left: clientWidth * 0.85,
+            behavior: "smooth",
+          });
+        }
+      }
+    }, 2500); // 3 seconds per slide
+
+    return () => clearInterval(interval);
+  }, []);
 
   const faqs = [
     {
@@ -1254,157 +1274,162 @@ export default function Home() {
       {/* STUDENT ARTWORK GALLERY SECTION */}
       <section className='px-4 py-16 md:py-24 bg-gradient-to-b from-white via-amber-50/30 to-yellow-50/30'>
         <div className='container mx-auto max-w-6xl'>
-          <div className='text-center mb-12 md:mb-16'>
+          {/* Header Section */}
+          <div className='text-center mb-10'>
             <div className='inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-orange-400 to-amber-400 text-white rounded-full mb-4 shadow-lg'>
               <Palette className='w-4 h-4' />
-              <span className='text-amber-50 text-sm font-semibold'>
-                REAL STUDENT RESULTS
+              <span className='text-amber-50 text-sm font-semibold uppercase tracking-wider'>
+                Real Student Results
               </span>
             </div>
-            <h2 className='text-3xl md:text-4xl lg:text-5xl font-bold mb-6'>
+
+            <h2 className='text-3xl md:text-5xl font-bold mb-6'>
               <span className='bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-600 bg-clip-text text-transparent'>
-                From 'I Can't Draw' to Masterpiece
+                From &apos;I Can&apos;t Draw&apos; to Masterpiece
               </span>
             </h2>
-            <p className='text-xl text-orange-700 max-w-3xl mx-auto bg-white/50 p-6 rounded-2xl border border-amber-200'>
-              Witness the amazing progress of students who started just like you
-              - with confusion and self-doubt.
-            </p>
           </div>
 
-          {/* Mobile-Optimized Grid */}
-          <div className='grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 gap-3 md:gap-6 mb-8'>
-            {/* Artwork 1 */}
-            <div className='group relative aspect-square overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300'>
-              <div className='absolute inset-0 bg-gradient-to-t from-orange-900/70 via-orange-800/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-end p-4'>
-                <div className='text-white'>
-                  <p className='font-semibold text-sm md:text-base text-amber-50'>
-                    Beginner's First Success
-                  </p>
-                  <p className='text-xs text-amber-200 mt-1'>Student Artwork</p>
-                </div>
-              </div>
-              <img
-                src='/assets/StudentArtwork1.jpeg'
-                alt="Student Artwork 1 - Beginner's First Success"
-                className='w-full h-full object-cover transition-transform duration-500 group-hover:scale-110'
-                loading='lazy'
-              />
-            </div>
+          {/* Mobile Carousel / Desktop Grid */}
+          <div
+            ref={scrollRef}
+            className='
+        relative
+        flex md:grid md:grid-cols-3
+        gap-5 md:gap-6
+        overflow-x-auto
+        pb-10
+        snap-x snap-mandatory
+        scroll-smooth
+        overscroll-x-contain
+        scrollbar-hide
+      '
+          >
+            {[
+              {
+                src: "/assets/StudentArtwork1.jpeg",
+                title: "Beginner's First Success",
+              },
+              {
+                src: "/assets/StudentArtwork2.jpeg",
+                title: "Confidence in Color",
+              },
+              {
+                src: "/assets/StudentArtwork10.jpeg",
+                title: "Creative Expression",
+              },
+              {
+                src: "/assets/StudentArtwork3.jpeg",
+                title: "Journey of Growth",
+              },
+              {
+                src: "/assets/StudentArtwork8.jpeg",
+                title: "Creative Expression",
+              },
+              {
+                src: "/assets/StudentArtwork4.jpeg",
+                title: "Skill Development",
+              },
+              {
+                src: "/assets/StudentArtwork6.jpeg",
+                title: "Artistic Breakthrough",
+              },
+              {
+                src: "/assets/StudentArtwork7.jpeg",
+                title: "Creative Expression",
+              },
 
-            {/* Artwork 2 */}
-            <div className='group relative aspect-square overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300'>
-              <div className='absolute inset-0 bg-gradient-to-t from-orange-900/70 via-orange-800/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-end p-4'>
-                <div className='text-white'>
-                  <p className='font-semibold text-sm md:text-base text-amber-50'>
-                    Confidence in Color
-                  </p>
-                  <p className='text-xs text-amber-200 mt-1'>Student Artwork</p>
-                </div>
-              </div>
-              <img
-                src='/assets/StudentArtwork2.jpeg'
-                alt='Student Artwork 2 - Confidence in Color'
-                className='w-full h-full object-cover transition-transform duration-500 group-hover:scale-110'
-                loading='lazy'
-              />
-            </div>
+              {
+                src: "/assets/StudentArtwork9.jpeg",
+                title: "Creative Expression",
+              },
+            ].map((art, index) => (
+              <div
+                key={index}
+                className='
+            min-w-[85%] sm:min-w-[45%] md:min-w-full
+            snap-center
+            group
+            relative
+            aspect-square
+            overflow-hidden
+            rounded-3xl
+            bg-white
+            shadow-lg
+            transition-all
+            duration-300
+            hover:shadow-2xl
+            hover:scale-[1.02]
+          '
+              >
+                {/* Image */}
+                <img
+                  src={art.src}
+                  alt={art.title}
+                  loading='lazy'
+                  className='
+              w-full h-full
+              object-cover
+              transition-transform
+              duration-700
+              ease-out
+              group-hover:scale-110
+            '
+                />
 
-            {/* Artwork 3 */}
-            <div className='group relative aspect-square overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300'>
-              <div className='absolute inset-0 bg-gradient-to-t from-orange-900/70 via-orange-800/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-end p-4'>
-                <div className='text-white'>
-                  <p className='font-semibold text-sm md:text-base text-amber-50'>
-                    Journey of Growth
-                  </p>
-                  <p className='text-xs text-amber-200 mt-1'>Student Artwork</p>
-                </div>
-              </div>
-              <img
-                src='/assets/StudentArtwork3.jpeg'
-                alt='Student Artwork 3 - Journey of Growth'
-                className='w-full h-full object-cover transition-transform duration-500 group-hover:scale-110'
-                loading='lazy'
-              />
-            </div>
+                {/* Subtle dark overlay */}
+                <div className='absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-300' />
 
-            {/* Artwork 4 */}
-            <div className='group relative aspect-square overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300'>
-              <div className='absolute inset-0 bg-gradient-to-t from-orange-900/70 via-orange-800/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-end p-4'>
-                <div className='text-white'>
-                  <p className='font-semibold text-sm md:text-base text-amber-50'>
-                    Skill Development
-                  </p>
-                  <p className='text-xs text-amber-200 mt-1'>Student Artwork</p>
+                {/* Text Overlay */}
+                <div
+                  className='
+              absolute inset-0
+              bg-gradient-to-t from-black/80 via-black/20 to-transparent
+              opacity-0 group-hover:opacity-100
+              transition-opacity duration-300
+              z-10
+              flex items-end
+              p-6
+            '
+                >
+                  <div>
+                    <p className='font-semibold text-lg text-white leading-tight'>
+                      {art.title}
+                    </p>
+                    <p className='text-sm text-white/70 tracking-wide'>
+                      Student Artwork
+                    </p>
+                  </div>
                 </div>
               </div>
-              <img
-                src='/assets/StudentArtwork4.jpeg'
-                alt='Student Artwork 4 - Skill Development'
-                className='w-full h-full object-cover transition-transform duration-500 group-hover:scale-110'
-                loading='lazy'
-              />
-            </div>
+            ))}
 
-            {/* Artwork 5 */}
-            <div className='group relative aspect-square overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300'>
-              <div className='absolute inset-0 bg-gradient-to-t from-orange-900/70 via-orange-800/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-end p-4'>
-                <div className='text-white'>
-                  <p className='font-semibold text-sm md:text-base text-amber-50'>
-                    Artistic Breakthrough
-                  </p>
-                  <p className='text-xs text-amber-200 mt-1'>Student Artwork</p>
-                </div>
-              </div>
-              <img
-                src='/assets/StudentArtwork6.jpeg'
-                alt='Student Artwork 5 - Artistic Breakthrough'
-                className='w-full h-full object-cover transition-transform duration-500 group-hover:scale-110'
-                loading='lazy'
-              />
-            </div>
-
-            {/* Artwork 6 */}
-            <div className='group relative aspect-square overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300'>
-              <div className='absolute inset-0 bg-gradient-to-t from-orange-900/70 via-orange-800/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-end p-4'>
-                <div className='text-white'>
-                  <p className='font-semibold text-sm md:text-base text-amber-50'>
-                    Creative Expression
-                  </p>
-                  <p className='text-xs text-amber-200 mt-1'>Student Artwork</p>
-                </div>
-              </div>
-              <img
-                src='/assets/StudentArtwork7.jpeg'
-                alt='Student Artwork 6 - Creative Expression'
-                className='w-full h-full object-cover transition-transform duration-500 group-hover:scale-110'
-                loading='lazy'
-              />
-            </div>
+            {/* Edge fade hint (mobile) */}
+            <div className='pointer-events-none absolute right-0 top-0 h-full w-12 bg-gradient-to-l from-yellow-50/80 to-transparent md:hidden' />
           </div>
 
-          {/* CTA */}
-          <div className='text-center'>
-            <div className='shake-loop'>
-              <Button
+          {/* CTA Section */}
+          <div className='text-center mt-8'>
+            <div className='shake-loop inline-block'>
+              <button
                 onClick={() =>
                   window.open(WEBINAR_CONFIG.RAZORPAY_LINK, "_blank")
                 }
-                size='lg'
-                className='group px-8 py-6 text-lg rounded-full font-bold shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105'
+                className='group flex items-center justify-center px-10 py-5 text-xl rounded-full font-bold shadow-2xl hover:shadow-orange-200/50 transition-all duration-300 hover:scale-105 active:scale-95'
                 style={{
-                  background: `linear-gradient(135deg, ${COLORS.orange[500]}, ${COLORS.amber[500]}, ${COLORS.orange[600]})`,
+                  background: `linear-gradient(135deg, ${COLORS.orange[500]}, ${COLORS.amber[500]})`,
                   color: "white",
                 }}
               >
-                <Rocket className='shake-loop w-6 h-6 mr-3 group-hover:translate-x-2 transition-transform duration-300' />
-                {CTA_CONFIG.journeyCTA.text}
-                <ArrowRight className='w-5 h-5 ml-3 group-hover:translate-x-2 transition-transform duration-300' />
-              </Button>
+                <Rocket className='w-6 h-6 mr-3 group-hover:rotate-12 transition-transform' />
+                <span>{CTA_CONFIG.journeyCTA.text}</span>
+                <ArrowRight className='w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform' />
+              </button>
             </div>
-            <p className='mt-4 text-sm text-orange-600 max-w-md mx-auto'>
-              Join 1,500+ students who transformed from confused beginners to
-              confident creators.
+
+            <p className='mt-6 text-orange-700 font-medium flex items-center justify-center gap-2'>
+              <span className='w-2 h-2 bg-green-500 rounded-full animate-ping' />
+              Join 1,500+ students worldwide
             </p>
           </div>
         </div>
