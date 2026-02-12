@@ -48,6 +48,7 @@ import {
 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import { CTA_CONFIG } from "@/lib/CTA.config";
 
 const WEBINAR_CONFIG = {
   DATE_TIME: "2026-02-22 14:00:00",
@@ -180,7 +181,7 @@ const CountdownTimer = () => {
             }}
           >
             <Rocket className='w-5 h-5 mr-2 group-hover:translate-x-1 transition-transform' />
-            Join Live Session Now
+            {CTA_CONFIG.CounterTimerButton.text}
           </Button>
         </div>
       </div>
@@ -245,7 +246,7 @@ const CountdownTimer = () => {
               }}
             >
               <Rocket className='w-6 h-6 mr-3 group-hover:translate-x-2 transition-transform duration-300' />
-              Get My Roadmap for ₹30
+              {CTA_CONFIG.RoadmapCTA.text}
               <Sunrise className='w-5 h-5 ml-3 group-hover:rotate-12 transition-transform duration-300' />
             </Button>
 
@@ -351,7 +352,7 @@ const FixedCountdownBar = () => {
           <div className='flex items-center gap-6'>
             <div className='text-center'>
               <div className='text-sm text-amber-50 line-through opacity-75'>
-                Rs. 999
+                {WEBINAR_CONFIG.PRICE.original}
               </div>
               <div className='text-xl font-bold bg-gradient-to-r from-amber-200 to-yellow-200 bg-clip-text text-transparent'>
                 {WEBINAR_CONFIG.PRICE.discounted}
@@ -368,7 +369,7 @@ const FixedCountdownBar = () => {
                 }}
               >
                 <Rocket className='w-3.5 h-3.5 mr-1.5' />
-                Register Now
+                {CTA_CONFIG.FixedCountdownCTA.text}
               </Button>
               <button
                 onClick={() => setIsVisible(false)}
@@ -955,7 +956,7 @@ export default function Home() {
               }}
             >
               <Rocket className='w-7 h-7 mr-3 group-hover:translate-x-2 transition-transform duration-300' />
-              One Click Clarity
+              {CTA_CONFIG.HomeCTA.text}
               <ArrowRight className='w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform duration-300' />
             </Button>
 
@@ -1084,7 +1085,7 @@ export default function Home() {
                 <div className='relative'>
                   <div className='w-64 h-64 md:w-80 md:h-80 mx-auto relative overflow-hidden rounded-2xl shadow-2xl border-4 border-white'>
                     <Image
-                      src='/assets/MentorImage.webp'
+                      src='/assets/MentorImage.jpeg'
                       alt='Meenakshi Shukla - Art Mentor'
                       fill
                       className='object-cover'
@@ -1293,7 +1294,7 @@ export default function Home() {
                 </div>
               </div>
               <img
-                src='/assets/StudentArtwork1.webp'
+                src='/assets/StudentArtwork1.jpeg'
                 alt="Student Artwork 1 - Beginner's First Success"
                 className='w-full h-full object-cover transition-transform duration-500 group-hover:scale-110'
                 loading='lazy'
@@ -1311,7 +1312,7 @@ export default function Home() {
                 </div>
               </div>
               <img
-                src='/assets/StudentArtwork2.webp'
+                src='/assets/StudentArtwork2.jpeg'
                 alt='Student Artwork 2 - Confidence in Color'
                 className='w-full h-full object-cover transition-transform duration-500 group-hover:scale-110'
                 loading='lazy'
@@ -1329,7 +1330,7 @@ export default function Home() {
                 </div>
               </div>
               <img
-                src='/assets/StudentArtwork3.webp'
+                src='/assets/StudentArtwork3.jpeg'
                 alt='Student Artwork 3 - Journey of Growth'
                 className='w-full h-full object-cover transition-transform duration-500 group-hover:scale-110'
                 loading='lazy'
@@ -1347,7 +1348,7 @@ export default function Home() {
                 </div>
               </div>
               <img
-                src='/assets/StudentArtwork4.webp'
+                src='/assets/StudentArtwork4.jpeg'
                 alt='Student Artwork 4 - Skill Development'
                 className='w-full h-full object-cover transition-transform duration-500 group-hover:scale-110'
                 loading='lazy'
@@ -1365,7 +1366,7 @@ export default function Home() {
                 </div>
               </div>
               <img
-                src='/assets/StudentArtwork5.webp'
+                src='/assets/StudentArtwork6.jpeg'
                 alt='Student Artwork 5 - Artistic Breakthrough'
                 className='w-full h-full object-cover transition-transform duration-500 group-hover:scale-110'
                 loading='lazy'
@@ -1383,7 +1384,7 @@ export default function Home() {
                 </div>
               </div>
               <img
-                src='/assets/StudentArtwork6.webp'
+                src='/assets/StudentArtwork7.jpeg'
                 alt='Student Artwork 6 - Creative Expression'
                 className='w-full h-full object-cover transition-transform duration-500 group-hover:scale-110'
                 loading='lazy'
@@ -1405,7 +1406,7 @@ export default function Home() {
               }}
             >
               <Rocket className='w-6 h-6 mr-3 group-hover:translate-x-2 transition-transform duration-300' />
-              Start Your Journey Now
+              {CTA_CONFIG.journeyCTA.text}
               <ArrowRight className='w-5 h-5 ml-3 group-hover:translate-x-2 transition-transform duration-300' />
             </Button>
             <p className='mt-4 text-sm text-orange-600 max-w-md mx-auto'>
@@ -1480,7 +1481,7 @@ export default function Home() {
                   }}
                 >
                   <Rocket className='w-6 h-6 sm:w-7 sm:h-7 mr-3 group-hover:translate-x-2 transition-transform duration-300' />
-                  One Click Clarity
+                  {CTA_CONFIG.HomeCTA.text}
                   <ArrowRight className='w-5 h-5 sm:w-6 sm:h-6 ml-3 group-hover:translate-x-2 transition-transform duration-300' />
                 </Button>
               </div>

@@ -8,22 +8,24 @@ import {
 } from "next/font/google";
 import "../../globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const inter = Source_Sans_3({
+  variable: "--font-source-sans",
   subsets: ["latin"],
-  display: "swap",
+  weight: ["400", "500", "600"],
 });
 
+// Secondary font: Source Sans 3 (professional, readable)
 const sourceSans = Source_Sans_3({
   variable: "--font-source-sans",
   subsets: ["latin"],
-  display: "swap",
+  weight: ["400", "500", "600"],
 });
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+// Secondary font: Source Sans 3 (professional, readable)
+const playfair = Source_Sans_3({
+  variable: "--font-source-sans",
   subsets: ["latin"],
-  display: "swap",
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
