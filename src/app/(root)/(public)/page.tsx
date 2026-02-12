@@ -171,25 +171,26 @@ const CountdownTimer = () => {
             Last chance to join the live session and transform your art journey
             today.
           </p>
-
-          <Button
-            onClick={handleRegisterClick}
-            className='group px-8 py-4 text-lg rounded-full font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-0.5 hover:scale-105'
-            style={{
-              background: `linear-gradient(135deg, ${COLORS.orange[50]}, ${COLORS.amber[100]})`,
-              color: COLORS.orange[700],
-            }}
-          >
-            <Rocket className='w-5 h-5 mr-2 group-hover:translate-x-1 transition-transform' />
-            {CTA_CONFIG.CounterTimerButton.text}
-          </Button>
+          <div className='shake-loop inline-block'>
+            <button
+              onClick={handleRegisterClick}
+              className='group flex items-center px-8 py-4 text-lg rounded-full font-bold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95'
+              style={{
+                background: `linear-gradient(135deg, ${COLORS.orange[50]}, ${COLORS.amber[100]})`,
+                color: COLORS.orange[700],
+              }}
+            >
+              <Rocket className='w-5 h-5 mr-2 group-hover:translate-x-1 transition-transform' />
+              {CTA_CONFIG.CounterTimerButton.text}
+            </button>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className='relative mx-auto max-w-4xl overflow-hidden rounded-3xl shadow-2xl text-white/95 p-8 md:p-10'>
+    <div className='relative mx-auto max-w-4xl overflow-hidden rounded-3xl shadow-2xl text-white/95 p-8 md:p-10 m-auto'>
       {/* Background image */}
       <img
         src='/assets/HeroPage.png'
@@ -238,18 +239,19 @@ const CountdownTimer = () => {
           </div>
 
           <div className='space-y-8'>
-            <Button
-              onClick={handleRegisterClick}
-              className='group px-8 py-5 text-lg rounded-full font-bold shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 text-orange-800 drop-shadow-sm'
-              style={{
-                background: `linear-gradient(135deg, ${COLORS.orange[50]}, ${COLORS.amber[100]})`,
-              }}
-            >
-              <Rocket className='w-6 h-6 mr-3 group-hover:translate-x-2 transition-transform duration-300' />
-              {CTA_CONFIG.RoadmapCTA.text}
-              <Sunrise className='w-5 h-5 ml-3 group-hover:rotate-12 transition-transform duration-300' />
-            </Button>
-
+            <div className='shake-loop'>
+              <Button
+                onClick={handleRegisterClick}
+                className='group px-8 md:py-5 py-8 text-lg  rounded-full font-bold shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 text-orange-800  drop-shadow-sm'
+                style={{
+                  background: `linear-gradient(135deg, ${COLORS.orange[50]}, ${COLORS.amber[100]})`,
+                }}
+              >
+                <Rocket className='w-6 h-6 mr-3 group-hover:translate-x-2 transition-transform duration-300' />
+                {CTA_CONFIG.RoadmapCTA.text}
+                <Sunrise className='w-5 h-5 ml-3 group-hover:rotate-12 transition-transform duration-300' />
+              </Button>
+            </div>
             <div className='flex flex-col sm:flex-row items-center justify-center gap-4 text-sm'>
               <div className='flex items-center gap-2 px-4 py-2 bg-white/25 backdrop-blur-sm rounded-full border border-white/40'>
                 <CalendarDays className='w-4 h-4 text-white' />
@@ -349,17 +351,8 @@ const FixedCountdownBar = () => {
             </div>
           </div>
 
-          <div className='flex items-center gap-6'>
-            <div className='text-center'>
-              <div className='text-sm text-amber-50 line-through opacity-75'>
-                {WEBINAR_CONFIG.PRICE.original}
-              </div>
-              <div className='text-xl font-bold bg-gradient-to-r from-amber-200 to-yellow-200 bg-clip-text text-transparent'>
-                {WEBINAR_CONFIG.PRICE.discounted}
-              </div>
-            </div>
-
-            <div className='flex items-center gap-3'>
+          <div className='flex items-center gap-3'>
+            <div className='shake-loop'>
               <Button
                 onClick={handleRegisterClick}
                 className='px-5 py-2.5 text-sm rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105'
@@ -371,14 +364,10 @@ const FixedCountdownBar = () => {
                 <Rocket className='w-3.5 h-3.5 mr-1.5' />
                 {CTA_CONFIG.FixedCountdownCTA.text}
               </Button>
-              <button
-                onClick={() => setIsVisible(false)}
-                className='text-amber-50 w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/20 transition-colors border border-white/30'
-                aria-label='Close'
-              >
-                ×
-              </button>
             </div>
+            <span className='line-through'>
+              {WEBINAR_CONFIG.PRICE.original}
+            </span>
           </div>
         </div>
       </div>
@@ -946,19 +935,21 @@ export default function Home() {
           </div>
 
           <div className='text-center'>
-            <Button
-              onClick={handleRegisterClick}
-              size='lg'
-              className='group px-12 py-7 text-xl rounded-full font-bold shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105'
-              style={{
-                background: `linear-gradient(135deg, ${COLORS.orange[500]}, ${COLORS.amber[500]}, ${COLORS.orange[600]})`,
-                color: "white",
-              }}
-            >
-              <Rocket className='w-7 h-7 mr-3 group-hover:translate-x-2 transition-transform duration-300' />
-              {CTA_CONFIG.HomeCTA.text}
-              <ArrowRight className='w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform duration-300' />
-            </Button>
+            <div className='shake-loop'>
+              <Button
+                onClick={handleRegisterClick}
+                size='lg'
+                className='group px-12 py-7 text-xl rounded-full font-bold shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105'
+                style={{
+                  background: `linear-gradient(135deg, ${COLORS.orange[500]}, ${COLORS.amber[500]}, ${COLORS.orange[600]})`,
+                  color: "white",
+                }}
+              >
+                <Rocket className='shake-loop w-7 h-7 mr-3 group-hover:translate-x-2 transition-transform duration-300' />
+                {CTA_CONFIG.HomeCTA.text}
+                <ArrowRight className='w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform duration-300' />
+              </Button>
+            </div>
 
             <p className='mt-6 text-sm text-orange-600 flex items-center justify-center gap-2 bg-orange-100/50 rounded-xl p-3 max-w-md mx-auto border border-amber-200'>
               <Lock className='w-4 h-4' />
@@ -995,7 +986,7 @@ export default function Home() {
                 title: "Hobby Artists",
                 description: "You dabble in art but feel stuck or inconsistent",
                 icon: "✨",
-                gradient: "from-orange-700 to-orange-400",
+                gradient: "from-amber-400 to-orange-500",
               },
               {
                 title: "Fearful Starters",
@@ -1185,7 +1176,7 @@ export default function Home() {
                 icon: Video,
                 title: "90-Min Live Masterclass",
                 description:
-                  "60-75 minute interactive session focused on clarity and confidence",
+                  "90 minute interactive session focused on clarity and confidence",
                 duration: "Live Session",
                 gradient: "from-orange-500 to-amber-500",
                 highlight: true,
@@ -1394,98 +1385,27 @@ export default function Home() {
 
           {/* CTA */}
           <div className='text-center'>
-            <Button
-              onClick={() =>
-                window.open(WEBINAR_CONFIG.RAZORPAY_LINK, "_blank")
-              }
-              size='lg'
-              className='group px-8 py-6 text-lg rounded-full font-bold shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105'
-              style={{
-                background: `linear-gradient(135deg, ${COLORS.orange[500]}, ${COLORS.amber[500]}, ${COLORS.orange[600]})`,
-                color: "white",
-              }}
-            >
-              <Rocket className='w-6 h-6 mr-3 group-hover:translate-x-2 transition-transform duration-300' />
-              {CTA_CONFIG.journeyCTA.text}
-              <ArrowRight className='w-5 h-5 ml-3 group-hover:translate-x-2 transition-transform duration-300' />
-            </Button>
+            <div className='shake-loop'>
+              <Button
+                onClick={() =>
+                  window.open(WEBINAR_CONFIG.RAZORPAY_LINK, "_blank")
+                }
+                size='lg'
+                className='group px-8 py-6 text-lg rounded-full font-bold shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105'
+                style={{
+                  background: `linear-gradient(135deg, ${COLORS.orange[500]}, ${COLORS.amber[500]}, ${COLORS.orange[600]})`,
+                  color: "white",
+                }}
+              >
+                <Rocket className='shake-loop w-6 h-6 mr-3 group-hover:translate-x-2 transition-transform duration-300' />
+                {CTA_CONFIG.journeyCTA.text}
+                <ArrowRight className='w-5 h-5 ml-3 group-hover:translate-x-2 transition-transform duration-300' />
+              </Button>
+            </div>
             <p className='mt-4 text-sm text-orange-600 max-w-md mx-auto'>
               Join 1,500+ students who transformed from confused beginners to
               confident creators.
             </p>
-          </div>
-        </div>
-      </section>
-
-      <section className='px-4 py-16 md:py-24'>
-        <div className='container mx-auto max-w-4xl'>
-          <div className='relative overflow-hidden rounded-3xl shadow-2xl p-8 md:p-12 border-2 border-amber-400/50'>
-            <img
-              src='/assets/StudentArtwork5.webp'
-              alt=''
-              className='absolute inset-0 w-full h-full object-cover'
-            />
-
-            <div className='absolute inset-0 bg-black/70' />
-
-            <div className='absolute inset-0 bg-gradient-to-br from-orange-500/30 via-amber-500/20 to-yellow-500/20' />
-
-            {/* Floating particles */}
-            <div className='absolute top-0 right-0 w-64 h-64 bg-white/20 rounded-full -translate-y-32 translate-x-32 blur-2xl'></div>
-            <div className='absolute bottom-0 left-0 w-48 h-48 bg-amber-300/30 rounded-full translate-y-24 -translate-x-24 blur-2xl'></div>
-
-            {/* Content */}
-            <div className='relative z-10 text-center text-white'>
-              <div className='inline-flex items-center gap-2 px-4 py-2 bg-white/30 backdrop-blur-sm rounded-full mb-6 border border-white/40'>
-                <Gift className='text-amber-50 w-4 h-4' />
-                <span className='text-sm text-amber-50 font-semibold'>
-                  SPECIAL LAUNCH OFFER • 93% OFF
-                </span>
-              </div>
-
-              <div className='flex justify-center text-white gap-5'>
-                <h2 className='text-3xl md:text-4xl lg:text-5xl font-bold mb-6'>
-                  Ready to Transform
-                  <span className='block bg-gradient-to-r from-amber-200 to-yellow-200 bg-clip-text text-transparent mt-2'>
-                    Confusion Into Confidence?
-                  </span>
-                </h2>
-              </div>
-
-              <div className='mb-10'>
-                <div className='inline-flex flex-col sm:flex-row items-center gap-6 bg-white/20 backdrop-blur-sm rounded-2xl p-8 border border-white/30'>
-                  <div className='text-center'>
-                    <div className='text-3xl md:text-6xl font-bold mb-3'>
-                      <span className='bg-gradient-to-r from-amber-200 to-yellow-200 bg-clip-text text-transparent whitespace-nowrap'>
-                        Rs.30/- ONLY
-                      </span>
-                    </div>
-                  </div>
-                  <div className='h-16 w-px bg-white/30 hidden sm:block'></div>
-                  <div className='text-left mt-2 sm:mt-0'>
-                    <div className='text-amber-50 px-4 py-1.5 bg-gradient-to-r from-orange-600 to-amber-600 rounded-full text-sm whitespace-nowrap'>
-                      Limited Spots Left
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className='space-y-8'>
-                <Button
-                  onClick={handleRegisterClick}
-                  size='lg'
-                  className='group px-8 sm:px-14 py-6 sm:py-7 text-xl sm:text-2xl rounded-full font-bold shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105'
-                  style={{
-                    background: `linear-gradient(135deg, ${COLORS.orange[50]}, ${COLORS.amber[100]})`,
-                    color: COLORS.orange[700],
-                  }}
-                >
-                  <Rocket className='w-6 h-6 sm:w-7 sm:h-7 mr-3 group-hover:translate-x-2 transition-transform duration-300' />
-                  {CTA_CONFIG.HomeCTA.text}
-                  <ArrowRight className='w-5 h-5 sm:w-6 sm:h-6 ml-3 group-hover:translate-x-2 transition-transform duration-300' />
-                </Button>
-              </div>
-            </div>
           </div>
         </div>
       </section>

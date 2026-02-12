@@ -90,9 +90,10 @@
 
 @theme inline {
   /* Font families - all non-cursive, sweet and formal */
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-heading: var(--font-playfair), Georgia, serif;
-  --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-source-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-heading:
+    var(--font-playwrite), cursive; /* Playwrite is your heading/handwriting font */
+  --font-display: var(--font-source-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
   /* Colors */
@@ -139,68 +140,63 @@
   }
 
   body {
-    @apply bg-linear-to-b from-orange-50 to-white text-gray-800 font-sans antialiased leading-relaxed;
+    @apply bg-linear-to-b from-orange-50 to-white text-gray-800 antialiased leading-relaxed;
+    font-family: var(--font-body);
   }
 
-  /* Elegant, formal typography hierarchy */
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    @apply font-heading tracking-tight text-balance;
+    font-family: var(--font-body);
+    @apply tracking-tight text-balance;
   }
 
   h1 {
-    @apply text-4xl md:text-5xl lg:text-6xl font-bold mb-6;
-    font-family: var(--font-playfair);
+    @apply text-4xl md:text-5xl lg:text-6xl font-semibold mb-6;
   }
 
   h2 {
-    @apply text-3xl md:text-4xl lg:text-5xl font-semibold mb-5;
-    font-family: var(--font-playfair);
+    @apply text-3xl md:text-4xl lg:text-5xl font-medium mb-5;
   }
 
   h3 {
     @apply text-2xl md:text-3xl font-medium mb-4;
-    font-family: var(--font-playfair);
   }
 
   h4 {
     @apply text-xl md:text-2xl font-medium mb-3;
-    font-family: var(--font-playfair);
   }
 
-  /* For subheadings with a sweeter touch */
   .subheading {
-    @apply font-display text-lg md:text-xl font-medium text-gray-600;
-    font-family: var(--font-poppins);
+    font-family: var(--font-body); /* Sora */
+    @apply text-lg md:text-xl font-medium text-gray-600;
   }
 
-  /* Body text - clean and readable */
   p,
-  li,
-  span,
-  div:not(h1, h2, h3, h4, h5, h6) {
-    @apply font-sans text-gray-700 leading-relaxed;
-    font-family: var(--font-inter);
+  li {
+    font-family: var(--font-body); /* Inter */
+    @apply text-gray-700 leading-relaxed;
   }
 
-  /* Buttons use Poppins for a slightly sweeter but still formal look */
   button,
   .btn {
-    font-family: var(--font-poppins);
+    font-family: var(--font-body); /* Sora */
+    @apply font-medium;
   }
 
-  /* Quotes and special text blocks */
   blockquote,
   .quote {
-    @apply font-heading italic text-xl border-l-4 border-orange-400 pl-6 py-2 my-6 text-gray-700;
-    font-family: var(--font-playfair);
+    font-family: var(--font-body); /* Cormorant Garamond */
+    @apply italic text-xl border-l-4 border-orange-400 pl-6 py-2 my-6 text-gray-700;
   }
 
-  /* Scrollbar styling */
+  .handwritten {
+    font-family: var(--font-playwrite);
+  }
+
   ::-webkit-scrollbar {
     width: 10px;
   }
@@ -268,6 +264,29 @@
   50% {
     transform: translateY(-20px);
   }
+}
+@keyframes shake-snap {
+  /* The Shake (0% to 25% of the time) */
+  0%,
+  25%,
+  50% {
+    transform: translateX(0);
+  }
+  12% {
+    transform: translateX(-6px);
+  }
+  37% {
+    transform: translateX(6px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.shake-loop {
+  display: inline-block;
+  animation: shake-snap 1s ease-in-out infinite;
 }
 
 @keyframes pulse-glow {

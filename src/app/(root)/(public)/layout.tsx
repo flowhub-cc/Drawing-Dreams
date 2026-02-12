@@ -1,29 +1,21 @@
 import type { Metadata } from "next";
-import {
-  Inter,
-  Poppins,
-  Playfair_Display,
-  Roboto,
-  Source_Sans_3,
-} from "next/font/google";
+import { Inter, Cormorant_Garamond, Sora } from "next/font/google";
 import "../../globals.css";
 
-const inter = Source_Sans_3({
-  variable: "--font-source-sans",
+const cormorantGaramond = Cormorant_Garamond({
+  variable: "--font-heading",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
 });
 
-// Secondary font: Source Sans 3 (professional, readable)
-const sourceSans = Source_Sans_3({
-  variable: "--font-source-sans",
+const inter = Inter({
+  variable: "--font-body",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
 });
 
-// Secondary font: Source Sans 3 (professional, readable)
-const playfair = Source_Sans_3({
-  variable: "--font-source-sans",
+const sora = Sora({
+  variable: "--font-accent",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
 });
@@ -62,24 +54,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' className='scroll-smooth' suppressHydrationWarning>
+    <html
+      lang='en'
+      className={`
+    scroll-smooth
+    ${cormorantGaramond.variable}
+    ${inter.variable}
+    ${sora.variable}
+  `}
+      suppressHydrationWarning
+    >
       <head>
         <link rel='icon' href='/favicon.jpeg' type='image/jpeg' />
         <link rel='icon' type='image/x-icon' href='/favicon.ico' />
-        <link
-          rel='preload'
-          href={inter.variable}
-          as='font'
-          type='font/woff2'
-          crossOrigin='anonymous'
-        />
-        <link
-          rel='preload'
-          href={sourceSans.variable}
-          as='font'
-          type='font/woff2'
-          crossOrigin='anonymous'
-        />
         <script
           async
           src='https://www.googletagmanager.com/gtag/js?id=G-CK357Q7VME'
@@ -115,7 +102,7 @@ fbq('track', 'PageView');
         </noscript>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
       </head>
-      <body className={`${inter.className} antialiased`}>{children}</body>
+      <body className='antialiased'>{children}</body>
     </html>
   );
 }
