@@ -56,7 +56,7 @@ const WEBINAR_CONFIG = {
   RAZORPAY_LINK: "https://rzp.io/rzp/drawingdreams",
   PRICE: {
     original: "₹999",
-    discounted: "Rs.  99 ONLY",
+    discounted: "Rs.  30 ONLY",
   },
   MAX_SEATS: 100,
 };
