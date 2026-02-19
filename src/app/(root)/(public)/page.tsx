@@ -51,7 +51,7 @@ import Image from "next/image";
 import { CTA_CONFIG } from "@/lib/CTA.config";
 
 const WEBINAR_CONFIG = {
-  DATE_TIME: "2026-02-22 14:00:00",
+  DATE_TIME: "2026-03-01 14:00:00",
   TIMEZONE: "Asia/Kolkata",
   RAZORPAY_LINK: "https://rzp.io/rzp/drawingdreams",
   PRICE: {
