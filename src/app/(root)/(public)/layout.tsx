@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Cormorant_Garamond, Sora } from "next/font/google";
 import "../../globals.css";
+import Script from "next/script";
 
 const cormorantGaramond = Cormorant_Garamond({
   variable: "--font-heading",
@@ -67,20 +68,25 @@ export default function RootLayout({
       <head>
         <link rel='icon' href='/favicon.jpeg' type='image/jpeg' />
         <link rel='icon' type='image/x-icon' href='/favicon.ico' />
-        <script
+      </head>
+      <body className='antialiased'>
+        {/* GTAG */}
+        <Script
           async
           src='https://www.googletagmanager.com/gtag/js?id=G-CK357Q7VME'
-        ></script>
-        <script>
+          strategy='afterInteractive'
+        ></Script>
+        <Script id='gtag-init' strategy='afterInteractive'>
           {`window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
   gtag('config', 'G-CK357Q7VME');`}
-        </script>
-        <script>
-          {`
-!function(f,b,e,v,n,t,s)
+        </Script>
+
+        {/* Meta pixel tag */}
+        <Script id='fb-pixel' strategy='afterInteractive'>
+          {`!function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
 if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
@@ -88,21 +94,20 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '735925022161748');
-fbq('track', 'PageView');
-  `}
-        </script>
+fbq('init', '1166575265247359');
+fbq('track', 'PageView');`}
+        </Script>
         <noscript>
           <img
             height='1'
             width='1'
             style={{ display: "none" }}
-            src='https://www.facebook.com/tr?id=735925022161748&ev=PageView&noscript=1'
+            src='https://www.facebook.com/tr?id=1166575265247359&ev=PageView&noscript=1'
           />
         </noscript>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-      </head>
-      <body className='antialiased'>{children}</body>
+        {children}
+      </body>
     </html>
   );
 }
