@@ -927,7 +927,7 @@ export default function Home() {
               Art isn't a secret talent, it&apos;s a proven process. Claim your
               FREE spot in this live workshop to get the exact, step-by-step
               roadmap absolute beginners use to
-              <span className='font-semibold text-orange-600'>
+              <span className='font-semibold text-orange-600 ml-3'>
                 start sketching with confidence.
               </span>
             </p>
