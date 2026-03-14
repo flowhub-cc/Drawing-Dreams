@@ -58,7 +58,7 @@ const WEBINAR_CONFIG = {
     original: "₹999",
     discounted: "Free",
   },
-  MAX_SEATS: 100,
+  MAX_SEATS: 1500,
 };
 
 const COLORS = {
@@ -1581,9 +1581,6 @@ export default function Home() {
             <p className='text-amber-50'>
               © {new Date().getFullYear()} Drawing Dreams Art Institute. All
               rights reserved.
-            </p>
-            <p className='mt-3 text-amber-50 font-medium'>
-              Want to learn sketching & painting but don't know where to start?
             </p>
           </div>
         </div>
