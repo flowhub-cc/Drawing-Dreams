@@ -51,12 +51,12 @@ import Image from "next/image";
 import { CTA_CONFIG } from "@/lib/CTA.config";
 
 const WEBINAR_CONFIG = {
-  DATE_TIME: "2026-03-01 14:00:00",
+  DATE_TIME: "2026-03-22 17:00:00",
   TIMEZONE: "Asia/Kolkata",
   RAZORPAY_LINK: "https://rzp.io/rzp/drawingdreams",
   PRICE: {
     original: "₹999",
-    discounted: "Rs.  30 ONLY",
+    discounted: "Free",
   },
   MAX_SEATS: 100,
 };
@@ -910,12 +910,12 @@ export default function Home() {
 
             <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold mb-6'>
               <span className='bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-600 bg-clip-text text-transparent'>
-                Want to learn Sketching & Painting
+                Stop Believing You Need "Talent"
               </span>
 
               <br />
               <span className='text-3xl md:text-4xl lg:text-5xl text-orange-800 mt-4 block'>
-                But don&apos;t know where to start?
+                to Create Beautiful Art.
               </span>
             </h1>
 
@@ -924,9 +924,11 @@ export default function Home() {
             </div>
 
             <p className='text-xl text-orange-700 mb-10 leading-relaxed bg-gradient-to-r from-orange-100/50 to-amber-100/50 p-6 rounded-2xl border border-amber-200'>
-              Join the live workshop to get a clear, step-by-step roadmap to{" "}
+              Art isn't a secret talent, it&apos;s a proven process. Claim your
+              FREE spot in this live workshop to get the exact, step-by-step
+              roadmap absolute beginners use to
               <span className='font-semibold text-orange-600'>
-                start your art journey without fear.
+                start sketching with confidence.
               </span>
             </p>
           </div>
