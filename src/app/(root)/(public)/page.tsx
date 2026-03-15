@@ -49,6 +49,7 @@ import {
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { CTA_CONFIG } from "@/lib/CTA.config";
+import RegistrationForm from "@/components/Form_popup";
 
 const WEBINAR_CONFIG = {
   DATE_TIME: "2026-03-22 17:00:00",
@@ -125,7 +126,11 @@ const calculateTimeLeft = (targetDate: Date): TimeLeft => {
   return { days, hours, minutes, seconds, isPast: false };
 };
 
-const CountdownTimer = () => {
+interface CountdownTimerProps {
+  onRegisterClick: () => void;
+}
+
+const CountdownTimer = ({ onRegisterClick }: CountdownTimerProps) => {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
     days: 0,
     hours: 0,
@@ -143,10 +148,6 @@ const CountdownTimer = () => {
     }, 1000);
     return () => clearInterval(timer);
   }, []);
-
-  const handleRegisterClick = () => {
-    window.open(WEBINAR_CONFIG.RAZORPAY_LINK, "_blank");
-  };
 
   if (timeLeft.isPast) {
     return (
@@ -173,7 +174,7 @@ const CountdownTimer = () => {
           </p>
           <div className='shake-loop inline-block'>
             <button
-              onClick={handleRegisterClick}
+              onClick={onRegisterClick}
               className='group flex items-center px-8 py-4 text-lg rounded-full font-bold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95'
               style={{
                 background: `linear-gradient(135deg, ${COLORS.orange[50]}, ${COLORS.amber[100]})`,
@@ -241,7 +242,7 @@ const CountdownTimer = () => {
           <div className='space-y-8'>
             <div className='shake-loop'>
               <Button
-                onClick={handleRegisterClick}
+                onClick={onRegisterClick}
                 className='group px-8 md:py-5 py-8 text-lg  rounded-full font-bold shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 text-orange-800  drop-shadow-sm'
                 style={{
                   background: `linear-gradient(135deg, ${COLORS.orange[50]}, ${COLORS.amber[100]})`,
@@ -295,7 +296,11 @@ const CountdownTimer = () => {
   );
 };
 
-const FixedCountdownBar = () => {
+interface FixedCountdownBarProps {
+  onRegisterClick: () => void;
+}
+
+const FixedCountdownBar = ({ onRegisterClick }: FixedCountdownBarProps) => {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
     days: 0,
     hours: 0,
@@ -314,14 +319,10 @@ const FixedCountdownBar = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const handleRegisterClick = () => {
-    window.open(WEBINAR_CONFIG.RAZORPAY_LINK, "_blank");
-  };
-
   if (!isVisible) return null;
 
   return (
-    <div className='fixed bottom-0 left-0 right-0 bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-600 text-white z-50 shadow-2xl border-t-2 border-amber-500/50 backdrop-blur-lg'>
+    <div className='fixed bottom-0 left-0 right-0 bg-linear-to-r from-orange-600 via-amber-600 to-yellow-600 text-white z-50 shadow-2xl border-t-2 border-amber-500/50 backdrop-blur-lg'>
       <div className='container mx-auto px-4 py-3'>
         <div className='flex flex-col md:flex-row items-center justify-between gap-4'>
           <div className='flex items-center gap-4'>
@@ -354,7 +355,7 @@ const FixedCountdownBar = () => {
           <div className='flex items-center gap-3'>
             <div className='shake-loop'>
               <Button
-                onClick={handleRegisterClick}
+                onClick={onRegisterClick}
                 className='px-5 py-2.5 text-sm rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105'
                 style={{
                   background: `linear-gradient(135deg, ${COLORS.orange[50]}, ${COLORS.amber[100]})`,
@@ -404,7 +405,7 @@ const YouTubeVideo = () => {
   return (
     <div className='relative group'>
       {/* Glowing border effect */}
-      <div className='absolute -inset-1 bg-gradient-to-r from-orange-400 via-amber-400 to-yellow-400 rounded-3xl blur-xl opacity-50 group-hover:opacity-70 transition duration-1000 group-hover:duration-300'></div>
+      <div className='absolute -inset-1 bg-linear-to-r from-orange-400 via-amber-400 to-yellow-400 rounded-3xl blur-xl opacity-50 group-hover:opacity-70 transition duration-1000 group-hover:duration-300'></div>
 
       <div className='relative aspect-video rounded-2xl overflow-hidden shadow-2xl border-2 border-amber-300/50'>
         <iframe
@@ -420,7 +421,7 @@ const YouTubeVideo = () => {
           loading='eager'
           onClick={handleIframeClick}
         />
-        <div className='absolute inset-0 bg-gradient-to-t from-orange-900/40 via-transparent to-transparent pointer-events-none'></div>
+        <div className='absolute inset-0 bg-linear-to-t from-orange-900/40 via-transparent to-transparent pointer-events-none'></div>
 
         {/* Clickable overlay for play - Only shows when not playing */}
         {!isPlaying && (
@@ -549,7 +550,7 @@ const TestimonialCarousel = () => {
 
   return (
     <div className='w-full'>
-      <div className='relative bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 rounded-3xl shadow-2xl overflow-hidden border-2 border-amber-200'>
+      <div className='relative bg-linear-to-br from-orange-50 via-amber-50 to-yellow-50 rounded-3xl shadow-2xl overflow-hidden border-2 border-amber-200'>
         {/* Background pattern */}
         <div
           className='absolute inset-0 opacity-30'
@@ -559,7 +560,7 @@ const TestimonialCarousel = () => {
         ></div>
 
         <div className='absolute top-6 left-6 z-10'>
-          <div className='flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-full shadow-lg'>
+          <div className='flex items-center gap-2 px-3 py-1.5 bg-linear-to-r from-orange-500 to-amber-500 text-white rounded-full shadow-lg'>
             <Video className='w-3.5 h-3.5' />
             <span className='text-amber-50 text-sm font-semibold'>
               Video Testimonials
@@ -580,7 +581,7 @@ const TestimonialCarousel = () => {
                 {/* VIDEO CARD */}
                 <div className='lg:w-2/5'>
                   <div className='group relative'>
-                    <div className='absolute -inset-1 bg-gradient-to-r from-orange-400 via-amber-400 to-yellow-400 rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition duration-500'></div>
+                    <div className='absolute -inset-1 bg-linear-to-r from-orange-400 via-amber-400 to-yellow-400 rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition duration-500'></div>
 
                     <div className='relative aspect-[4/5] rounded-xl overflow-hidden shadow-xl border-2 border-amber-300'>
                       <video
@@ -700,7 +701,7 @@ const TestimonialCarousel = () => {
                     <div className='absolute -top-6 -left-6 text-6xl text-amber-200/50 font-serif'>
                       "
                     </div>
-                    <div className='relative bg-gradient-to-br from-white to-amber-50 rounded-2xl p-8 shadow-xl border-2 border-amber-200'>
+                    <div className='relative bg-linear-to-br from-white to-amber-50 rounded-2xl p-8 shadow-xl border-2 border-amber-200'>
                       <div className='mb-8'>
                         <p className='text- mdsm:text-3xl font-light italic leading-relaxed text-orange-900'>
                           {testimonial.quote}
@@ -709,7 +710,7 @@ const TestimonialCarousel = () => {
 
                       <div className='pt-8 border-t border-amber-200'>
                         <div className='flex items-center gap-6'>
-                          <div className='w-20 h-20 rounded-full bg-gradient-to-r from-orange-400 to-amber-400 flex items-center justify-center shadow-lg'>
+                          <div className='w-20 h-20 rounded-full bg-linear-to-r from-orange-400 to-amber-400 flex items-center justify-center shadow-lg'>
                             <span className='text-2xl font-bold text-white'>
                               {testimonial.name.charAt(0)}
                             </span>
@@ -752,14 +753,14 @@ const TestimonialCarousel = () => {
         {/* CAROUSEL CONTROLS */}
         <button
           onClick={prevSlide}
-          className='absolute left-4 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-gradient-to-r from-white to-amber-50 shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center justify-center z-10 border-2 border-amber-300 hover:scale-110 hover:rotate-[-5deg]'
+          className='absolute left-4 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-linear-to-r from-white to-amber-50 shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center justify-center z-10 border-2 border-amber-300 hover:scale-110 hover:rotate-[-5deg]'
           aria-label='Previous testimonial'
         >
           <ChevronLeft className='w-6 h-6 text-orange-600' />
         </button>
         <button
           onClick={nextSlide}
-          className='absolute right-4 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-gradient-to-r from-white to-amber-50 shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center justify-center z-10 border-2 border-amber-300 hover:scale-110 hover:rotate-[5deg]'
+          className='absolute right-4 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-linear-to-r from-white to-amber-50 shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center justify-center z-10 border-2 border-amber-300 hover:scale-110 hover:rotate-[5deg]'
           aria-label='Next testimonial'
         >
           <ChevronRight className='w-6 h-6 text-orange-600' />
@@ -802,10 +803,10 @@ interface BenefitCardProps {
 
 const BenefitCard = ({ icon: Icon, title, description }: BenefitCardProps) => (
   <div className='group relative'>
-    <div className='absolute -inset-0.5 bg-gradient-to-r from-orange-400 via-amber-400 to-yellow-400 rounded-2xl blur opacity-0 group-hover:opacity-30 transition duration-500 group-hover:duration-200'></div>
-    <div className='relative bg-gradient-to-br from-white to-amber-50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-amber-200 group-hover:border-orange-400'>
+    <div className='absolute -inset-0.5 bg-linear-to-r from-orange-400 via-amber-400 to-yellow-400 rounded-2xl blur opacity-0 group-hover:opacity-30 transition duration-500 group-hover:duration-200'></div>
+    <div className='relative bg-linear-to-br from-white to-amber-50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-amber-200 group-hover:border-orange-400'>
       <div className='flex items-start gap-4'>
-        <div className='w-14 h-14 rounded-xl bg-gradient-to-r from-orange-400 to-amber-400 flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-300'>
+        <div className='w-14 h-14 rounded-xl bg-linear-to-r from-orange-400 to-amber-400 flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-300'>
           <Icon className='w-7 h-7 text-white' />
         </div>
         <div className='flex-1'>
@@ -818,6 +819,7 @@ const BenefitCard = ({ icon: Icon, title, description }: BenefitCardProps) => (
 );
 
 export default function Home() {
+  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   const webinarDateTime = new Date(WEBINAR_CONFIG.DATE_TIME);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -869,28 +871,33 @@ export default function Home() {
   };
 
   const handleRegisterClick = () => {
-    window.open(WEBINAR_CONFIG.RAZORPAY_LINK, "_blank");
+    setIsRegistrationOpen(true);
   };
 
   return (
-    <div className='min-h-screen bg-gradient-to-b from-orange-50 via-amber-50 to-yellow-50 pb-20'>
-      <FixedCountdownBar />
+    <div className='min-h-screen bg-linear-to-b from-orange-50 via-amber-50 to-yellow-50 pb-20'>
+      <FixedCountdownBar onRegisterClick={handleRegisterClick} />
+      <RegistrationForm
+        isOpen={isRegistrationOpen}
+        onClose={() => setIsRegistrationOpen(false)}
+        buttonText={CTA_CONFIG.HomeCTA.text}
+      />
 
       {/* Hero Section */}
       <section className='relative overflow-hidden px-4 py-12 md:py-20'>
         {/* Gradient background */}
-        <div className='absolute inset-0 bg-gradient-to-br from-orange-100/50 via-amber-100/30 to-yellow-100/20'></div>
+        <div className='absolute inset-0 bg-linear-to-br from-orange-100/50 via-amber-100/30 to-yellow-100/20'></div>
 
         {/* Animated sun elements */}
-        <div className='absolute top-0 right-0 w-96 h-96 bg-gradient-to-r from-orange-300/20 to-amber-300/20 rounded-full -translate-y-48 translate-x-48 animate-pulse'></div>
-        <div className='absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-r from-yellow-300/20 to-orange-300/20 rounded-full translate-y-40 -translate-x-40 animate-pulse delay-1000'></div>
+        <div className='absolute top-0 right-0 w-96 h-96 bg-linear-to-r from-orange-300/20 to-amber-300/20 rounded-full -translate-y-48 translate-x-48 animate-pulse'></div>
+        <div className='absolute bottom-0 left-0 w-80 h-80 bg-linear-to-r from-yellow-300/20 to-orange-300/20 rounded-full translate-y-40 -translate-x-40 animate-pulse delay-1000'></div>
 
         {/* Sun rays */}
         <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px]'>
           {[...Array(12)].map((_, i) => (
             <div
               key={i}
-              className='absolute top-1/2 left-1/2 w-1 h-96 bg-gradient-to-b from-orange-400/10 to-transparent'
+              className='absolute top-1/2 left-1/2 w-1 h-96 bg-linear-to-b from-orange-400/10 to-transparent'
               style={{
                 transform: `translate(-50%, -50%) rotate(${i * 30}deg)`,
                 transformOrigin: "center bottom",
@@ -901,7 +908,7 @@ export default function Home() {
 
         <div className='container mx-auto max-w-6xl relative z-10'>
           <div className='max-w-3xl mx-auto text-center mb-12'>
-            <div className='inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-orange-400 to-amber-400 text-white rounded-full mb-6 animate-fade-in shadow-lg'>
+            <div className='inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-orange-400 to-amber-400 text-white rounded-full mb-6 animate-fade-in shadow-lg'>
               <Sparkles className='w-4 h-4' />
               <span className='text-amber-50 text-sm font-semibold'>
                 LIVE MINDSET WEBINAR • LIMITED SEATS
@@ -909,7 +916,7 @@ export default function Home() {
             </div>
 
             <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold mb-6'>
-              <span className='bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-600 bg-clip-text text-transparent'>
+              <span className='bg-linear-to-r from-orange-600 via-amber-600 to-yellow-600 bg-clip-text text-transparent'>
                 Stop Believing You Need "Talent"
               </span>
 
@@ -923,7 +930,7 @@ export default function Home() {
               <YouTubeVideo />
             </div>
 
-            <p className='text-xl text-orange-700 mb-10 leading-relaxed bg-gradient-to-r from-orange-100/50 to-amber-100/50 p-6 rounded-2xl border border-amber-200'>
+            <p className='text-xl text-orange-700 mb-10 leading-relaxed bg-linear-to-r from-orange-100/50 to-amber-100/50 p-6 rounded-2xl border border-amber-200'>
               Art isn't a secret talent, it&apos;s a proven process. Claim your
               FREE spot in this live workshop to get the exact, step-by-step
               roadmap absolute beginners use to
@@ -934,7 +941,7 @@ export default function Home() {
           </div>
 
           <div className='mb-12'>
-            <CountdownTimer />
+            <CountdownTimer onRegisterClick={handleRegisterClick} />
           </div>
 
           <div className='space-y-3 mb-12'>
@@ -948,7 +955,7 @@ export default function Home() {
             ].map((item, index) => (
               <div
                 key={index}
-                className='flex items-center gap-3 p-4 bg-gradient-to-r from-white to-amber-50 rounded-xl shadow-sm border-2 border-amber-200 hover:border-orange-400 transition-colors group'
+                className='flex items-center gap-3 p-4 bg-linear-to-r from-white to-amber-50 rounded-xl shadow-sm border-2 border-amber-200 hover:border-orange-400 transition-colors group'
               >
                 <CheckCircle className='w-6 h-6 text-green-500 flex-shrink-0 group-hover:scale-110 transition-transform' />
                 <span className='text-orange-800 text-lg'>{item}</span>
@@ -982,11 +989,11 @@ export default function Home() {
       </section>
 
       {/* Who This Is For */}
-      <section className='px-4 py-16 md:py-24 bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50'>
+      <section className='px-4 py-16 md:py-24 bg-linear-to-br from-orange-50 via-amber-50 to-yellow-50'>
         <div className='container mx-auto max-w-6xl'>
           <div className='text-center mb-12 md:mb-16'>
             <h2 className='text-3xl md:text-4xl lg:text-5xl font-bold mb-6'>
-              <span className='bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-600 bg-clip-text text-transparent'>
+              <span className='bg-linear-to-r from-orange-600 via-amber-600 to-yellow-600 bg-clip-text text-transparent'>
                 This Is For You If...
               </span>
             </h2>
@@ -1041,11 +1048,11 @@ export default function Home() {
             ].map((item, index) => (
               <div
                 key={index}
-                className='group bg-gradient-to-br from-white to-amber-50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-amber-200 hover:border-orange-400 hover:scale-105'
+                className='group bg-linear-to-br from-white to-amber-50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-amber-200 hover:border-orange-400 hover:scale-105'
               >
                 <div className='flex items-start gap-4'>
                   <div
-                    className={`w-16 h-16 rounded-xl bg-gradient-to-r ${item.gradient} flex items-center justify-center text-3xl shadow-lg`}
+                    className={`w-16 h-16 rounded-xl bg-linear-to-r ${item.gradient} flex items-center justify-center text-3xl shadow-lg`}
                   >
                     {item.icon}
                   </div>
@@ -1057,7 +1064,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className='mt-4 pt-4 border-t border-amber-200'>
-                  <div className='flex items-center gap-2 text-sm bg-gradient-to-r from-orange-100 to-amber-100 px-3 py-1 rounded-full'>
+                  <div className='flex items-center gap-2 text-sm bg-linear-to-r from-orange-100 to-amber-100 px-3 py-1 rounded-full'>
                     <MousePointer className='w-3 h-3 text-orange-600' />
                     <span className='text-orange-700 font-medium'>
                       Click "Register" to solve this
@@ -1071,11 +1078,11 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className='px-4 py-16 md:py-24 bg-gradient-to-b from-white via-orange-50/30 to-amber-50/20'>
+      <section className='px-4 py-16 md:py-24 bg-linear-to-b from-white via-orange-50/30 to-amber-50/20'>
         <div className='container mx-auto max-w-6xl'>
           <div className='text-center mb-12 md:mb-16'>
             <h2 className='text-3xl md:text-4xl lg:text-5xl font-bold mb-6'>
-              <span className='bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-600 bg-clip-text text-transparent'>
+              <span className='bg-linear-to-r from-orange-600 via-amber-600 to-yellow-600 bg-clip-text text-transparent'>
                 Real Stories, Real Transformations
               </span>
             </h2>
@@ -1089,12 +1096,12 @@ export default function Home() {
       </section>
 
       {/* About Guide */}
-      <section className='px-4 py-16 md:py-24 bg-gradient-to-br from-white via-amber-50 to-yellow-50'>
+      <section className='px-4 py-16 md:py-24 bg-linear-to-br from-white via-amber-50 to-yellow-50'>
         <div className='container mx-auto max-w-6xl'>
           <div className='flex flex-col lg:flex-row items-center gap-12 lg:gap-16'>
             <div className='lg:w-2/5'>
               <div className='relative'>
-                <div className='absolute -inset-4 bg-gradient-to-r from-orange-400 via-amber-400 to-yellow-400 rounded-3xl blur-2xl opacity-30'></div>
+                <div className='absolute -inset-4 bg-linear-to-r from-orange-400 via-amber-400 to-yellow-400 rounded-3xl blur-2xl opacity-30'></div>
                 <div className='relative'>
                   <div className='w-64 h-64 md:w-80 md:h-80 mx-auto relative overflow-hidden rounded-2xl shadow-2xl border-4 border-white'>
                     <Image
@@ -1105,12 +1112,12 @@ export default function Home() {
                       sizes='(max-width: 768px) 256px, 320px'
                       priority
                     />
-                    <div className='absolute inset-0 bg-gradient-to-t from-orange-900/20 via-transparent to-transparent'></div>
+                    <div className='absolute inset-0 bg-linear-to-t from-orange-900/20 via-transparent to-transparent'></div>
                   </div>
-                  <div className='absolute -bottom-4 -right-4 w-24 h-24 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-500 shadow-xl border-2 border-white flex items-center justify-center'>
+                  <div className='absolute -bottom-4 -right-4 w-24 h-24 rounded-2xl bg-linear-to-r from-orange-500 to-amber-500 shadow-xl border-2 border-white flex items-center justify-center'>
                     <Award className='w-12 h-12 text-white' />
                   </div>
-                  <div className='absolute -top-4 -left-4 w-20 h-20 rounded-2xl bg-gradient-to-r from-yellow-400 to-amber-400 shadow-xl border-2 border-white flex items-center justify-center'>
+                  <div className='absolute -top-4 -left-4 w-20 h-20 rounded-2xl bg-linear-to-r from-yellow-400 to-amber-400 shadow-xl border-2 border-white flex items-center justify-center'>
                     <Heart className='w-10 h-10 text-white' />
                   </div>
                 </div>
@@ -1118,7 +1125,7 @@ export default function Home() {
             </div>
 
             <div className='lg:w-3/5'>
-              <div className='inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-orange-400 to-amber-400 text-white rounded-full mb-4 shadow-lg'>
+              <div className='inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-orange-400 to-amber-400 text-white rounded-full mb-4 shadow-lg'>
                 <Sparkles className='w-4 h-4' />
                 <span className='text-amber-50 text-sm font-semibold'>
                   MEET YOUR GUIDE
@@ -1126,11 +1133,11 @@ export default function Home() {
               </div>
 
               <h2 className='text-3xl md:text-4xl lg:text-5xl font-bold mb-4'>
-                <span className='bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-600 bg-clip-text text-transparent'>
+                <span className='bg-linear-to-r from-orange-600 via-amber-600 to-yellow-600 bg-clip-text text-transparent'>
                   Meenakshi Shukla
                 </span>
               </h2>
-              <p className='text-xl text-orange-600 font-semibold mb-8 bg-gradient-to-r from-orange-100 to-amber-100 p-4 rounded-xl border border-amber-200'>
+              <p className='text-xl text-orange-600 font-semibold mb-8 bg-linear-to-r from-orange-100 to-amber-100 p-4 rounded-xl border border-amber-200'>
                 Founder, Drawing Dreams Art Institute • 7+ Years Experience •
                 1500+ Students
               </p>
@@ -1146,7 +1153,7 @@ export default function Home() {
                     key={index}
                     className='flex items-start gap-4 bg-white/50 p-4 rounded-xl border border-amber-200'
                   >
-                    <div className='w-8 h-8 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 flex items-center justify-center flex-shrink-0'>
+                    <div className='w-8 h-8 rounded-full bg-linear-to-r from-green-400 to-emerald-500 flex items-center justify-center flex-shrink-0'>
                       <CheckCircle className='w-5 h-5 text-white' />
                     </div>
                     <span className='text-lg text-orange-800'>{item}</span>
@@ -1154,7 +1161,7 @@ export default function Home() {
                 ))}
               </div>
 
-              <div className='bg-gradient-to-r from-orange-100 via-amber-100 to-yellow-100 rounded-2xl p-6 border-2 border-amber-300'>
+              <div className='bg-linear-to-r from-orange-100 via-amber-100 to-yellow-100 rounded-2xl p-6 border-2 border-amber-300'>
                 <div className='flex items-start gap-4'>
                   <div className='w-10 h-10 text-orange-400 flex-shrink-0'>
                     <QuoteIcon />
@@ -1178,11 +1185,11 @@ export default function Home() {
       </section>
 
       {/* What You Get */}
-      <section className='px-4 py-16 md:py-24 bg-gradient-to-b from-white via-amber-50 to-yellow-50/30'>
+      <section className='px-4 py-16 md:py-24 bg-linear-to-b from-white via-amber-50 to-yellow-50/30'>
         <div className='container mx-auto max-w-6xl'>
           <div className='text-center mb-12 md:mb-16'>
             <h2 className='text-3xl md:text-4xl lg:text-5xl font-bold mb-6'>
-              <span className='bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-600 bg-clip-text text-transparent'>
+              <span className='bg-linear-to-r from-orange-600 via-amber-600 to-yellow-600 bg-clip-text text-transparent'>
                 Your Complete Starter Kit
               </span>
             </h2>
@@ -1245,20 +1252,20 @@ export default function Home() {
             ].map((item, index) => (
               <div
                 key={index}
-                className={`group bg-gradient-to-br from-white to-amber-50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border-2 ${
+                className={`group bg-linear-to-br from-white to-amber-50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border-2 ${
                   item.highlight
-                    ? "border-orange-400 bg-gradient-to-br from-white via-orange-50 to-amber-50"
+                    ? "border-orange-400 bg-linear-to-br from-white via-orange-50 to-amber-50"
                     : "border-amber-200"
                 } hover:scale-105`}
               >
                 <div className='flex items-start justify-between mb-4'>
                   <div
-                    className={`w-14 h-14 rounded-xl bg-gradient-to-r ${item.gradient} flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform`}
+                    className={`w-14 h-14 rounded-xl bg-linear-to-r ${item.gradient} flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform`}
                   >
                     <item.icon className='w-7 h-7 text-white' />
                   </div>
                   <span
-                    className={`px-4 py-1.5 rounded-full text-sm font-medium bg-gradient-to-r ${item.gradient} text-white shadow`}
+                    className={`px-4 py-1.5 rounded-full text-sm font-medium bg-linear-to-r ${item.gradient} text-white shadow`}
                   >
                     {item.duration}
                   </span>
@@ -1274,11 +1281,11 @@ export default function Home() {
       </section>
 
       {/* STUDENT ARTWORK GALLERY SECTION */}
-      <section className='px-4 py-16 md:py-24 bg-gradient-to-b from-white via-amber-50/30 to-yellow-50/30'>
+      <section className='px-4 py-16 md:py-24 bg-linear-to-b from-white via-amber-50/30 to-yellow-50/30'>
         <div className='container mx-auto max-w-6xl'>
           {/* Header Section */}
           <div className='text-center mb-10'>
-            <div className='inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-orange-400 to-amber-400 text-white rounded-full mb-4 shadow-lg'>
+            <div className='inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-orange-400 to-amber-400 text-white rounded-full mb-4 shadow-lg'>
               <Palette className='w-4 h-4' />
               <span className='text-amber-50 text-sm font-semibold uppercase tracking-wider'>
                 Real Student Results
@@ -1286,7 +1293,7 @@ export default function Home() {
             </div>
 
             <h2 className='text-3xl md:text-5xl font-bold mb-6'>
-              <span className='bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-600 bg-clip-text text-transparent'>
+              <span className='bg-linear-to-r from-orange-600 via-amber-600 to-yellow-600 bg-clip-text text-transparent'>
                 From &apos;I Can&apos;t Draw&apos; to Masterpiece
               </span>
             </h2>
@@ -1386,7 +1393,7 @@ export default function Home() {
                 <div
                   className='
               absolute inset-0
-              bg-gradient-to-t from-black/80 via-black/20 to-transparent
+              bg-linear-to-t from-black/80 via-black/20 to-transparent
               opacity-0 group-hover:opacity-100
               transition-opacity duration-300
               z-10
@@ -1407,16 +1414,14 @@ export default function Home() {
             ))}
 
             {/* Edge fade hint (mobile) */}
-            <div className='pointer-events-none absolute right-0 top-0 h-full w-12 bg-gradient-to-l from-yellow-50/80 to-transparent md:hidden' />
+            <div className='pointer-events-none absolute right-0 top-0 h-full w-12 bg-linear-to-l from-yellow-50/80 to-transparent md:hidden' />
           </div>
 
           {/* CTA Section */}
           <div className='text-center mt-8'>
             <div className='shake-loop inline-block'>
               <button
-                onClick={() =>
-                  window.open(WEBINAR_CONFIG.RAZORPAY_LINK, "_blank")
-                }
+                onClick={handleRegisterClick}
                 className='group flex items-center justify-center px-10 py-5 text-xl rounded-full font-bold shadow-2xl hover:shadow-orange-200/50 transition-all duration-300 hover:scale-105 active:scale-95'
                 style={{
                   background: `linear-gradient(135deg, ${COLORS.orange[500]}, ${COLORS.amber[500]})`,
@@ -1438,11 +1443,11 @@ export default function Home() {
       </section>
 
       {/* FAQ */}
-      <section className='px-4 py-16 md:py-24 bg-gradient-to-br from-white via-orange-50 to-amber-50'>
+      <section className='px-4 py-16 md:py-24 bg-linear-to-br from-white via-orange-50 to-amber-50'>
         <div className='container mx-auto max-w-4xl'>
           <div className='text-center mb-12 md:mb-16'>
             <h2 className='text-3xl md:text-4xl lg:text-5xl font-bold mb-6'>
-              <span className='bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-600 bg-clip-text text-transparent'>
+              <span className='bg-linear-to-r from-orange-600 via-amber-600 to-yellow-600 bg-clip-text text-transparent'>
                 Frequently Asked Questions
               </span>
             </h2>
@@ -1455,14 +1460,14 @@ export default function Home() {
             {faqs.map((faq, index) => (
               <div
                 key={index}
-                className='group bg-gradient-to-br from-white to-amber-50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-amber-200 hover:border-orange-400'
+                className='group bg-linear-to-br from-white to-amber-50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-amber-200 hover:border-orange-400'
               >
                 <button
                   onClick={() => toggleFaq(index)}
-                  className='w-full p-6 text-left flex items-center justify-between hover:bg-gradient-to-r hover:from-orange-50/50 hover:to-amber-50/50 transition-all duration-200 rounded-2xl group'
+                  className='w-full p-6 text-left flex items-center justify-between hover:bg-linear-to-r hover:from-orange-50/50 hover:to-amber-50/50 transition-all duration-200 rounded-2xl group'
                 >
                   <div className='flex items-center gap-4'>
-                    <div className='w-12 h-12 rounded-xl bg-gradient-to-r from-orange-400 to-amber-400 flex items-center justify-center group-hover:rotate-12 transition-transform'>
+                    <div className='w-12 h-12 rounded-xl bg-linear-to-r from-orange-400 to-amber-400 flex items-center justify-center group-hover:rotate-12 transition-transform'>
                       <HelpCircle className='w-6 h-6 text-white' />
                     </div>
                     <h3 className='font-semibold text-xl text-orange-900'>
@@ -1485,7 +1490,7 @@ export default function Home() {
                 >
                   <div className='px-6 pb-6 pt-0'>
                     <div className='pl-16'>
-                      <div className='flex items-start gap-4 p-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-200'>
+                      <div className='flex items-start gap-4 p-6 bg-linear-to-r from-green-50 to-emerald-50 rounded-xl border border-green-200'>
                         <CheckCircle className='w-7 h-7 text-green-500 flex-shrink-0 mt-0.5' />
                         <p className='text-lg text-green-900'>{faq.a}</p>
                       </div>
@@ -1502,7 +1507,7 @@ export default function Home() {
                 variant='outline'
                 size='lg'
                 onClick={() => window.open("https://wa.me/+919651833502")}
-                className='rounded-full border-2 border-orange-400 text-orange-600 hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50 hover:border-orange-500'
+                className='rounded-full border-2 border-orange-400 text-orange-600 hover:bg-linear-to-r hover:from-orange-50 hover:to-amber-50 hover:border-orange-500'
               >
                 <MessageCircle className='w-5 h-5 mr-2' />
                 WhatsApp Support
@@ -1513,16 +1518,16 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className='bg-gradient-to-br from-orange-900 via-amber-900 to-yellow-900 text-white'>
+      <footer className='bg-linear-to-br from-orange-900 via-amber-900 to-yellow-900 text-white'>
         <div className='container mx-auto max-w-6xl px-4 py-12 md:py-16'>
           <div className='grid grid-cols-1 md:grid-cols-3 gap-8 mb-8'>
             <div>
               <div className='flex items-center gap-3 mb-4'>
-                <div className='w-12 h-12 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 flex items-center justify-center shadow-lg'>
+                <div className='w-12 h-12 rounded-xl bg-linear-to-r from-orange-500 to-amber-500 flex items-center justify-center shadow-lg'>
                   <Brush className='w-6 h-6 text-white' />
                 </div>
                 <div>
-                  <h3 className='text-2xl font-bold bg-gradient-to-r from-amber-200 to-yellow-200 bg-clip-text text-transparent'>
+                  <h3 className='text-2xl font-bold bg-linear-to-r from-amber-200 to-yellow-200 bg-clip-text text-transparent'>
                     Drawing Dreams Academy
                   </h3>
                   <p className='text-sm text-orange-300'>
@@ -1561,7 +1566,7 @@ export default function Home() {
                   <a
                     key={index}
                     href={social.href}
-                    className='w-12 h-12 rounded-xl bg-gradient-to-r from-orange-600/30 to-amber-600/30 flex items-center justify-center hover:bg-gradient-to-r hover:from-orange-500 hover:to-amber-500 transition-all duration-300 hover:scale-110 border border-orange-700/50'
+                    className='w-12 h-12 rounded-xl bg-linear-to-r from-orange-600/30 to-amber-600/30 flex items-center justify-center hover:bg-linear-to-r hover:from-orange-500 hover:to-amber-500 transition-all duration-300 hover:scale-110 border border-orange-700/50'
                     aria-label={social.label}
                   >
                     <social.icon className='w-5 h-5 stroke-white' />
