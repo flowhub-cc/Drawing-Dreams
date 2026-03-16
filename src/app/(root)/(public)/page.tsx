@@ -52,7 +52,7 @@ import { CTA_CONFIG } from "@/lib/CTA.config";
 import RegistrationForm from "@/components/Form_popup";
 
 const WEBINAR_CONFIG = {
-  DATE_TIME: "2026-03-22 10:00:00",
+  DATE_TIME: "2026-03-29 10:00:00",
   TIMEZONE: "Asia/Kolkata",
   RAZORPAY_LINK: "https://rzp.io/rzp/drawingdreams",
   PRICE: {
